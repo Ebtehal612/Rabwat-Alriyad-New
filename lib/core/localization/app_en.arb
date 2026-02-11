@@ -1,0 +1,220 @@
+{
+
+  "choose": "Choose {item}",
+  "mustEnter": "You must enter {item}",
+  "comparingPhoto": "Comparing Photo",
+  "titlePrefixMrs": "Mrs.",
+  "date": "Date",
+  "password": "Password",
+  "nationalId": "National ID",
+  "identityNumberValidation": "Invalid National ID",
+  "email": "Email",
+  "invalidEmail": "Invalid Email",
+  "otpValidation": "OTP must be 4 digits",
+  "passwordRequired": "Password is required",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "explanation": "Explanation",
+  "homeworkSolution": "Homework Solution",
+  "practice": "Practice",
+  "revision": "Revision",
+  "other": "Other",
+  "successfullyDownloaded": "File downloaded successfully",
+  "downloading": "Downloading...",
+  "invalidPhoneNumber": "Invalid Phone Number",
+  "within": "Within",
+  "workingNow": "Working now",
+  "ended": "Ended",
+  "nSeconds": "{count, plural, =1{1 second} other{{count} seconds}}",
+  "nMinutes": "{count, plural, =1{1 minute} other{{count} minutes}}",
+  "nHours": "{count, plural, =1{1 hour} other{{count} hours}}",
+  "nDays": "{count, plural, =1{1 day} other{{count} days}}",
+  "nMonths": "{count, plural, =1{1 month} other{{count} months}}",
+  "nYears": "{count, plural, =1{1 year} other{{count} years}}",
+  "serverError": "Server Error",
+  "badCertificate": "Bad Certificate",
+  "requestCancelled": "Request Cancelled",
+  "connectionError": "No Internet Connection",
+  "connectionTimeout": "Connection Timeout",
+  "receiveTimeout": "Receive Timeout",
+  "sendTimeout": "Send Timeout",
+  "unknownError": "Unknown Error",
+  "@choose": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "@mustEnter": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "@nSeconds": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@nMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@nHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@nDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@nMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@nYears": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "welcome": "Welcome",
+  "weekAgo":"Week ago",
+  "weeksAgo":"Weeks ago",
+  "today":"Today",
+  "home":"Home Page",
+  "livestockTitle": "Best Quality Livestock with Highest Standards",
+  "livestockSubtitle": "We provide you with the finest livestock from quality and health sources",
+  "viewAllLivestock": "Browse Livestock Now",
+  "morethanXanimalsavailable":"More than 5000+ animals available",
+  "availableNow": "Available Now",
+  "satisfiedcustomer": "Satisfied customer",
+  "qualityGuarantee": "Quality Guarantee",
+  "continuoussupport": "Continuous Support",
+  "livestockByType": "Classification by Type",
+  "viewAll": "View All",
+  "naeemi": "Naeemi",
+  "najdi": "Najdi",
+  "harri": "Harri",
+  "tyus": "Tyus",
+  "featuredLivestock": "Featured Livestock",
+  "specialOffers": "Special Livestock Offers",
+  "localcow": "Local Cow",
+  "years": "Years",
+  "months": "Months",
+  "saudiRiyal": "Saudi Riyal",
+  "contactNow": "Contact Now",
+  "sar": "SAR",
+  "profile": "Profile",
+  "products":"Products",
+  "rabwatalriyad":"Rabwat Alriyad",
+  "thebestinKingdom":"The Best in Kingdom",
+  "whyChooseUs":"Why Choose Us",
+  "whyChooseUsSubtitle":"We provide you with the best livestock purchasing experience",
+  "guaranteedQuality":"100% Guaranteed Quality",
+  "guaranteedQualityDesc":"All our animals pass rigorous veterinary examinations and enjoy the highest standards of quality and health",
+  "competitivePrices":"Competitive Prices",
+  "competitivePricesDesc":"We offer you the best prices in the market",
+  "support247":"24/7 Technical Support",
+  "support247Desc":"Our team is available 24/7 to answer your questions and help you choose the most suitable option.",
+  "fastDelivery":"Fast and Safe Delivery",
+  "fastDeliveryDesc":"We provide professional delivery service to all regions of the Kingdom with guaranteed speed of arrival",
+  "healthGuarantee":"Comprehensive Health Guarantee",
+  "healthGuaranteeDesc":"We provide health guarantee for all animals on all types of animals sold",
+  "specialOffer":"Special Offer",
+  "discountUpTo":"15% discount on all sacrifices",
+  "offerDescription":"Limited offer for a limited time. Book now and get a special discount when you buy today",
+  "daysLeft":"Days",
+  "hoursLeft":"Hours",
+  "benefitNow":"Benefit from the offer now",
+  "endsin":"Ends in",
+  "piece":"Piece",
+  "remaining":"Remaining",
+  "sheep": "Sheep",
+  "contactus":"Contact Us",
+  "swakni": "Swakni",
+  "hashee": "Hashee",
+  "all": "All",
+  "camels": "Camels",
+  "cows": "Cows",
+  "goats": "Goats",
+  "eidExclusiveOffers": "Eid Exclusive Offers",
+  "bookNowDiscount": "Book now and get up to 15% discount on selected sacrifices",
+  "bookYourSacrifice": "Book your sacrifice now",
+  "offerValidUntil": "Offer valid while stocks last",
+  "days": "Days",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "seconds": "Seconds",
+  "addtocart":"Add to cart",
+  "cart":"Cart",
+  "contactUs": "Contact Us",
+  "connectWithUsDirectly": "Connect with us directly",
+  "whatsapp": "WhatsApp",
+  "instantChat": "Instant and fast chat",
+  "additionalContactMethods": "Additional contact methods",
+  "emailAddress": "Email Address",
+  "followUs": "Follow us",
+  "instagram": "Instagram",
+  "snapchat": "Snapchat",
+  "sendMessage": "Send us a message",
+  "fullName": "Full Name",
+  "enterFullName": "Enter your full name",
+  "mobileNumber": "Mobile Number",
+  "inquiryType": "Inquiry Type",
+  "selectInquiryType": "Select inquiry type",
+  "message": "Message",
+  "writeMessageHere": "Write your message here...",
+  "sendMessageButton": "Send Message",
+  "priceLabel": "Price",
+  "additions": "Additions",
+  "payNow": "Pay Now",
+  "liver": "Lamb Liver",
+  "trotters": "Lamb Trotters",
+  "tripe": "Lamb Tripe",
+  "addToOrder": "Add to Order",
+  "priceColon": "Price: ",
+  "itemAdded": "{item} added to your order",
+  "additionsSummary": "Liver, Trotters, Tripe",
+  "orderCompletion": "Order Completion",
+  "detailedAddress": "Detailed Address",
+  "enterDetailedAddress": "Enter detailed address",
+  "discountCode": "Discount Code",
+  "enterDiscountCode": "Enter discount code",
+  "choosePaymentMethod": "Choose Payment Method",
+  "bankTransfer": "Bank Transfer",
+  "attachReceipt": "Attach receipt image",
+  "cashOnDelivery": "Cash on Delivery",
+  "sendOrder": "Send Order",
+  "@itemAdded": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "totalAmount": "Total Amount",
+  "proceedToPayment": "Proceed to Payment",
+  "quantity": "Quantity",
+  "total": "Total",
+  "cartEmpty": "Your cart is empty",
+  "emailHint": "example@email.com",
+  "mobileHint": "05xxxxxxxx",
+  "totalamountrequired":"Total amount required"
+}
