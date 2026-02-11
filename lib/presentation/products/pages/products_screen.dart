@@ -115,9 +115,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CustomText.s18(
+                        CustomText.s20(
                           AppLocalizations.of(context)!.rabwatalriyad,
                           color: Palette.dayBreakBlue.color7,
+                          bold: true,
                         ),
                         4.verticalSpace,
                         CustomText.s12(
@@ -224,6 +225,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
             });
           }
         },
+        checkmarkColor: Colors.white,
         selectedColor: Palette.dayBreakBlue.color7,
         labelStyle: TextStyle(color: isSelected ? Colors.white : Colors.black),
         backgroundColor: Colors.grey.withValues(alpha: 0.2),

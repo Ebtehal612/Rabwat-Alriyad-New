@@ -102,12 +102,15 @@ class AdditionsScreen extends StatelessWidget {
                       context: context,
                       type: ToastificationType.success,
                       style: ToastificationStyle.flat,
+                      backgroundColor: Colors.green.shade500,
                       autoCloseDuration: const Duration(seconds: 3),
                       title: CustomText.s14(
                         localizations.itemAdded(item['name']),
-                        color: Palette.dayBreakBlue.color7,
+                        color: Colors.white,
                         bold: true,
                       ),
+                      primaryColor: Colors.white,
+                      foregroundColor: Colors.white,
                       alignment: Alignment.topCenter,
                       showProgressBar: false,
                     );

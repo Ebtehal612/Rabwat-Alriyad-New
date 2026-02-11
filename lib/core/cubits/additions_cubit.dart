@@ -15,6 +15,17 @@ class AdditionsCubit extends Cubit<Map<String, List<String>>> {
     }
   }
 
+  void removeAddition(String productName, String addition) {
+    final newState = Map<String, List<String>>.from(state);
+    if (newState.containsKey(productName)) {
+      newState[productName]!.remove(addition);
+      if (newState[productName]!.isEmpty) {
+        newState.remove(productName);
+      }
+      emit(newState);
+    }
+  }
+
   void clearAdditions(String productName) {
     final newState = Map<String, List<String>>.from(state);
     newState.remove(productName);

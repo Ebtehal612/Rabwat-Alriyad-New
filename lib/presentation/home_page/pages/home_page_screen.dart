@@ -55,9 +55,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CustomText.s18(
+                              CustomText.s20(
                                 AppLocalizations.of(context)!.rabwatalriyad,
                                 color: Palette.dayBreakBlue.color7,
+                                bold: true,
                               ),
                               4.verticalSpace,
                               CustomText.s12(
@@ -244,7 +245,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               '8500+',
               AppLocalizations.of(context)!.satisfiedcustomer,
               Icons.people,
-              Palette.green.shade800,
+              Colors.green.shade700,
             ),
           ),
           12.horizontalSpace,

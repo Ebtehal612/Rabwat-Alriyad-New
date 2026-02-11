@@ -20,7 +20,6 @@ class ContactUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lz = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: const Color(0xffF9F9F9),
       appBar: AppBar(
         title: Text(
           lz.contactUs,
@@ -34,7 +33,6 @@ class ContactUsScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: BackButton(color: Palette.dayBreakBlue.color7),
       ),
       body: SingleChildScrollView(
         child: Column(

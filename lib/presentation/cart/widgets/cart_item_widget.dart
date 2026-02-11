@@ -182,7 +182,7 @@ class CartItemWidget extends StatelessWidget {
                   color: Palette.dustRed.color5,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.close, color: Colors.white, size: 14.sp),
+                child: Icon(Icons.close, color: Colors.white, size: 18.sp),
               ),
             ),
           ),

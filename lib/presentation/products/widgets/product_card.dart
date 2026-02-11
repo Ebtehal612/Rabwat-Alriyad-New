@@ -42,12 +42,12 @@ class ProductCard extends StatelessWidget {
     final additionsCubit = context.read<AdditionsCubit>();
     final additions = additionsCubit.getAdditions(name);
     final additionPrices = _getAdditionPrices();
-    
+
     double additionsTotal = 0;
     for (var addition in additions) {
       additionsTotal += additionPrices[addition] ?? 0;
     }
-    
+
     return basePrice + additionsTotal;
   }
 
@@ -71,7 +71,7 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 120.h,
+              height: 180.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
                 color: Palette.dayBreakBlue.color7.withValues(alpha: 0.1),
@@ -88,10 +88,12 @@ class ProductCard extends StatelessWidget {
                       height: 120.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color:
-                            Palette.dayBreakBlue.color7.withValues(alpha: 0.1),
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(12.r)),
+                        color: Palette.dayBreakBlue.color7.withValues(
+                          alpha: 0.1,
+                        ),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.r),
+                        ),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -99,14 +101,16 @@ class ProductCard extends StatelessWidget {
                           Icon(
                             Icons.image_not_supported,
                             size: 40.sp,
-                            color: Palette.dayBreakBlue.color7
-                                .withValues(alpha: 0.5),
+                            color: Palette.dayBreakBlue.color7.withValues(
+                              alpha: 0.5,
+                            ),
                           ),
                           8.verticalSpace,
                           CustomText.s12(
                             'Image not found',
-                            color: Palette.dayBreakBlue.color7
-                                .withValues(alpha: 0.5),
+                            color: Palette.dayBreakBlue.color7.withValues(
+                              alpha: 0.5,
+                            ),
                           ),
                         ],
                       ),
@@ -133,6 +137,7 @@ class ProductCard extends StatelessWidget {
                       CustomText.s10(
                         AppLocalizations.of(context)!.priceLabel,
                         color: Palette.neutral.color7,
+                        bold: true,
                       ),
                       4.verticalSpace,
                       Row(
@@ -158,9 +163,80 @@ class ProductCard extends StatelessWidget {
                           if (additions.isEmpty) return const SizedBox.shrink();
                           return Padding(
                             padding: EdgeInsets.only(top: 4.h),
-                            child: CustomText.s9(
-                              "+ ${additions.join('، ')}",
-                              color: Colors.green,
+                            child: SizedBox(
+                              width: 150.w,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: List.generate(
+                                  (additions.length / 2).ceil(),
+                                  (rowIndex) {
+                                    final startIndex = rowIndex * 2;
+                                    final endIndex = (startIndex + 2).clamp(
+                                      0,
+                                      additions.length,
+                                    );
+                                    final rowAdditions = additions.sublist(
+                                      startIndex,
+                                      endIndex,
+                                    );
+
+                                    return Padding(
+                                      padding: EdgeInsets.only(bottom: 6.h),
+                                      child: Row(
+                                        children: rowAdditions.map((addition) {
+                                          return Padding(
+                                            padding: EdgeInsets.only(
+                                              right: 6.w,
+                                            ),
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 8.w,
+                                                vertical: 4.h,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.green.withOpacity(
+                                                  0.1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.r),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  CustomText.s9(
+                                                    addition,
+                                                    color:
+                                                        Colors.green.shade700,
+                                                  ),
+                                                  4.horizontalSpace,
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      context
+                                                          .read<
+                                                            AdditionsCubit
+                                                          >()
+                                                          .removeAddition(
+                                                            name,
+                                                            addition,
+                                                          );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.close,
+                                                      size: 14.sp,
+                                                      color:
+                                                          Colors.green.shade700,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
                           );
                         },
@@ -177,7 +253,7 @@ class ProductCard extends StatelessWidget {
                           final additionsCubit = context.read<AdditionsCubit>();
                           final additions = additionsCubit.getAdditions(name);
                           final additionPrices = _getAdditionPrices();
-                          
+
                           final cartItem = CartItem(
                             productName: name,
                             imagePath: imagePath,
@@ -186,19 +262,25 @@ class ProductCard extends StatelessWidget {
                             additionPrices: additionPrices,
                             quantity: 1,
                           );
-                          
+
                           cartCubit.addToCart(cartItem);
-                          
+
+                          // Clear additions after adding to cart
+                          additionsCubit.clearAdditions(name);
+
                           toastification.show(
                             context: context,
                             type: ToastificationType.success,
                             style: ToastificationStyle.flat,
+                            backgroundColor: Colors.green.shade500,
                             autoCloseDuration: const Duration(seconds: 3),
                             title: CustomText.s14(
                               AppLocalizations.of(context)!.orderAddedToCart,
-                              color: Palette.dayBreakBlue.color7,
+                              color: Colors.white,
                               bold: true,
                             ),
+                            primaryColor: Colors.white,
+                            foregroundColor: Colors.white,
                             alignment: Alignment.topCenter,
                             showProgressBar: false,
                           );
@@ -207,7 +289,9 @@ class ProductCard extends StatelessWidget {
                           backgroundColor: Palette.dayBreakBlue.color7,
                           foregroundColor: Colors.white,
                           padding: EdgeInsets.symmetric(
-                              horizontal: 50.w, vertical: 8.h),
+                            horizontal: 50.w,
+                            vertical: 8.h,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40.r),
                           ),
@@ -223,19 +307,28 @@ class ProductCard extends StatelessWidget {
                           OutlinedButton(
                             onPressed: () {
                               final totalPrice = _calculateTotalPrice(context);
+                              final additionsCubit = context
+                                  .read<AdditionsCubit>();
+
                               context.push(
                                 OrderCompletionScreen.routeName,
                                 extra: totalPrice,
                               );
+
+                              // Clear additions after paying
+                              additionsCubit.clearAdditions(name);
                             },
                             style: OutlinedButton.styleFrom(
                               side: BorderSide(
-                                  color: Palette.dayBreakBlue.color7),
+                                color: Palette.dayBreakBlue.color7,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.r),
                               ),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 25.w, vertical: 2.h),
+                                horizontal: 25.w,
+                                vertical: 2.h,
+                              ),
                             ),
                             child: CustomText.s10(
                               AppLocalizations.of(context)!.payNow,
@@ -245,8 +338,9 @@ class ProductCard extends StatelessWidget {
                           10.horizontalSpace,
                           InkWell(
                             onTap: () {
-                              context
-                                  .push('${AdditionsScreen.routeName}/$name');
+                              context.push(
+                                '${AdditionsScreen.routeName}/$name',
+                              );
                             },
                             child: Row(
                               children: [
