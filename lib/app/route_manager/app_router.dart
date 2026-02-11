@@ -28,8 +28,13 @@ class AppRouter {
       GoRoute(
         name: OrderCompletionScreen.routeName,
         path: OrderCompletionScreen.routeName,
-        pageBuilder: (context, state) =>
-            _buildPageWithTransition(const OrderCompletionScreen(), state),
+        pageBuilder: (context, state) {
+          final totalPrice = state.extra as double?;
+          return _buildPageWithTransition(
+            OrderCompletionScreen(totalPrice: totalPrice),
+            state,
+          );
+        },
       ),
       GoRoute(
         name: SplashScreen.routeName,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:rabwat_alriyad_new/presentation/cart/pages/cart_screen.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/localization/app_localizations.dart';
 import '../../../core/localization/language_manager.dart';
@@ -55,13 +56,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               CustomText.s18(
-                                  AppLocalizations.of(context)!.rabwatalriyad,
-                                  color: Palette.dayBreakBlue.color7),
+                                AppLocalizations.of(context)!.rabwatalriyad,
+                                color: Palette.dayBreakBlue.color7,
+                              ),
                               4.verticalSpace,
                               CustomText.s12(
-                                  AppLocalizations.of(context)!
-                                      .thebestinKingdom,
-                                  color: Palette.neutral.color7),
+                                AppLocalizations.of(context)!.thebestinKingdom,
+                                color: Palette.neutral.color7,
+                              ),
                             ],
                           ),
                         ),
@@ -106,17 +108,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Widget _buildHeroSection(
-      BuildContext context, LanguageManager languageManager) {
+    BuildContext context,
+    LanguageManager languageManager,
+  ) {
     return Container(
       height: 300.h,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Palette.dayBreakBlue.color7,
-            Palette.dayBreakBlue.color9,
-          ],
+          colors: [Palette.dayBreakBlue.color7, Palette.dayBreakBlue.color9],
         ),
       ),
       child: Stack(
@@ -153,18 +154,21 @@ class _HomePageScreenState extends State<HomePageScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Palette.dayBreakBlue.color7,
-                      borderRadius: BorderRadius.circular(20.r),
+                  decoration: BoxDecoration(
+                    color: Palette.dayBreakBlue.color7,
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 4.0,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 4.0),
-                      child: CustomText.s14(
-                        AppLocalizations.of(context)!.morethanXanimalsavailable,
-                        color: Colors.white,
-                      ),
-                    )),
+                    child: CustomText.s14(
+                      AppLocalizations.of(context)!.morethanXanimalsavailable,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 CustomText.s24(
                   AppLocalizations.of(context)!.livestockTitle,
                   color: Colors.white,
@@ -186,7 +190,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       backgroundColor: Palette.dayBreakBlue.color7,
                       foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(
-                          horizontal: 24.w, vertical: 12.h),
+                        horizontal: 24.w,
+                        vertical: 12.h,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40.r),
                       ),
@@ -256,8 +262,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-  Widget _buildStatCard(BuildContext context, String number, String label,
-      IconData icon, Color? iconColor) {
+  Widget _buildStatCard(
+    BuildContext context,
+    String number,
+    String label,
+    IconData icon,
+    Color? iconColor,
+  ) {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -273,11 +284,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
       child: Column(
         children: [
-          Icon(
-            icon,
-            color: iconColor,
-            size: 24.sp,
-          ),
+          Icon(icon, color: iconColor, size: 24.sp),
           8.verticalSpace,
           CustomText.s16(
             number,
@@ -392,7 +399,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Widget _buildLivestockTypeCard(
-      BuildContext context, String name, String imagePath, String price) {
+    BuildContext context,
+    String name,
+    String imagePath,
+    String price,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -427,8 +438,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Palette.dayBreakBlue.color7.withOpacity(0.1),
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(12.r)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(12.r),
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -525,15 +537,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 Container(
                   height: 200.h,
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(16.r)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16.r),
+                    ),
                     color: Palette.dayBreakBlue.color7.withOpacity(0.1),
                   ),
                   child: Stack(
                     children: [
                       ClipRRect(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(16.r)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(16.r),
+                        ),
                         child: Image.asset(
                           'assets/images/cow.png',
                           height: 200.h,
@@ -544,10 +558,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               height: 200.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Palette.dayBreakBlue.color7
-                                    .withOpacity(0.1),
+                                color: Palette.dayBreakBlue.color7.withOpacity(
+                                  0.1,
+                                ),
                                 borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(16.r)),
+                                  top: Radius.circular(16.r),
+                                ),
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -575,7 +591,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         right: 12.w,
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 8.w, vertical: 4.h),
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(12.r),
@@ -600,8 +618,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           Container(
                             padding: EdgeInsets.all(8.w),
                             decoration: BoxDecoration(
-                              color:
-                                  Palette.dayBreakBlue.color7.withOpacity(0.1),
+                              color: Palette.dayBreakBlue.color7.withOpacity(
+                                0.1,
+                              ),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             child: Icon(
@@ -646,18 +665,23 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               4.verticalSpace,
                               CustomText.s12(
                                 AppLocalizations.of(context)!.saudiRiyal,
-                                color: Palette.dayBreakBlue.color7
-                                    .withOpacity(0.7),
+                                color: Palette.dayBreakBlue.color7.withOpacity(
+                                  0.7,
+                                ),
                               ),
                             ],
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.push(CartScreen.routeName);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Palette.dayBreakBlue.color7,
                               foregroundColor: Colors.white,
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 20.w, vertical: 12.h),
+                                horizontal: 20.w,
+                                vertical: 12.h,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
@@ -669,10 +693,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   AppLocalizations.of(context)!.addtocart,
                                 ),
                                 8.horizontalSpace,
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 16.sp,
-                                ),
+                                Icon(Icons.arrow_forward_ios, size: 16.sp),
                               ],
                             ),
                           ),

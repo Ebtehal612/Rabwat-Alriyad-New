@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rabwat_alriyad_new/presentation/products/pages/products_screen.dart';
 import '../../../core/theme/palette.dart';
 import '../../../core/localization/localization_manager.dart';
 import '../../order_completion/pages/order_completion_screen.dart';
 import '../widgets/cart_item_widget.dart';
+import '../../../core/cubits/cart_cubit.dart';
+import '../../../core/models/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -24,65 +28,109 @@ class CartScreen extends StatelessWidget {
             fontSize: 20.sp,
           ),
         ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
         leading: BackButton(color: Palette.dayBreakBlue.color7),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(20.w),
-              children: [
-                _buildMockItems(),
-              ],
-            ),
-          ),
-          _buildFooter(context),
-        ],
+      body: BlocBuilder<CartCubit, List<CartItem>>(
+        builder: (context, cartItems) {
+          if (cartItems.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    lz.cartEmpty,
+                    style: TextStyle(
+                      fontSize: 23.sp,
+                      color: Palette.neutral.color7,
+                    ),
+                  ),
+                  20.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          context.push(ProductsScreen.routeName);
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: Palette.dayBreakBlue.color7),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 24.w,
+                            vertical: 12.h,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.r),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              lz.shopnow,
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Palette.dayBreakBlue.color7,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            5.horizontalSpace,
+                            Icon(
+                              Icons.add_shopping_cart_outlined,
+                              color: Palette.dayBreakBlue.color7,
+                              size: 20.sp,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.all(20.w),
+                  itemCount: cartItems.length,
+                  itemBuilder: (context, index) {
+                    final item = cartItems[index];
+                    return CartItemWidget(
+                      title: item.productName,
+                      imagePath: item.imagePath,
+                      price: item.unitPrice,
+                      quantity: item.quantity,
+                      subtotal: item.totalPrice,
+                      onRemove: () {
+                        context.read<CartCubit>().removeFromCart(index);
+                      },
+                      onIncrement: () {
+                        context.read<CartCubit>().incrementQuantity(index);
+                      },
+                      onDecrement: () {
+                        context.read<CartCubit>().decrementQuantity(index);
+                      },
+                    );
+                  },
+                ),
+              ),
+              _buildFooter(context, cartItems),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildMockItems() {
-    return Column(
-      children: [
-        CartItemWidget(
-          title: lz.naeemi,
-          imagePath: 'assets/images/neami.jpg',
-          price: 1150,
-          quantity: 2,
-          subtotal: 2300,
-          onRemove: () {},
-          onIncrement: () {},
-          onDecrement: () {},
-        ),
-        CartItemWidget(
-          title: lz.najdi,
-          imagePath: 'assets/images/nagdy.jpg',
-          price: 1250,
-          quantity: 3,
-          subtotal: 3750,
-          onRemove: () {},
-          onIncrement: () {},
-          onDecrement: () {},
-        ),
-        CartItemWidget(
-          title: lz.tyus,
-          imagePath: 'assets/images/tyous.png',
-          price: 1100,
-          quantity: 1,
-          subtotal: 1100,
-          onRemove: () {},
-          onIncrement: () {},
-          onDecrement: () {},
-        ),
-      ],
-    );
-  }
+  Widget _buildFooter(BuildContext context, List<CartItem> cartItems) {
+    final cartCubit = context.read<CartCubit>();
+    final total = cartCubit.totalAmount;
 
-  Widget _buildFooter(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
       decoration: BoxDecoration(
@@ -110,7 +158,7 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                '7,150 ${lz.saudiRiyal}',
+                '${total.toStringAsFixed(0)} ${lz.saudiRiyal}',
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -124,7 +172,7 @@ class CartScreen extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                context.push(OrderCompletionScreen.routeName);
+                context.push(OrderCompletionScreen.routeName, extra: total);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Palette.dayBreakBlue.color7,

@@ -161,6 +161,8 @@
   "total": "الاجمالي",
   "cartEmpty": "سلة التسوق فارغة",
   "emailHint": "example@email.com",
-  "mobileHint": "٠٥xxxxxxxx",
-  "totalamountrequired":"المبلغ الإجمالي المطلوب"
+  "mobileHint": "05xxxxxxxx",
+  "totalamountrequired":"المبلغ الإجمالي المطلوب",
+  "orderAddedToCart":"تمت إضافة طلبك إلى السلة",
+  "shopnow":"تسوق الآن"
 }

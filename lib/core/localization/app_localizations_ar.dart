@@ -526,8 +526,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emailHint => 'example@email.com';
 
   @override
-  String get mobileHint => '٠٥xxxxxxxx';
+  String get mobileHint => '05xxxxxxxx';
 
   @override
   String get totalamountrequired => 'المبلغ الإجمالي المطلوب';
+
+  @override
+  String get orderAddedToCart => 'تمت إضافة طلبك إلى السلة';
+
+  @override
+  String get shopnow => 'تسوق الآن';
 }

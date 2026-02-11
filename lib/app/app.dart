@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 import 'package:rabwat_alriyad_new/core/cubits/additions_cubit.dart';
+import 'package:rabwat_alriyad_new/core/cubits/cart_cubit.dart';
 import 'package:rabwat_alriyad_new/core/cubits/user_cubit.dart';
 import 'package:rabwat_alriyad_new/core/localization/app_localizations.dart';
 import 'package:rabwat_alriyad_new/core/localization/language_manager.dart';
@@ -27,6 +28,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider.value(value: sl<LocaleCubit>()),
         BlocProvider.value(value: sl<UserCubit>()),
         BlocProvider.value(value: sl<AdditionsCubit>()),
+        BlocProvider.value(value: sl<CartCubit>()),
         ChangeNotifierProvider.value(value: sl<LanguageManager>()),
       ],
       child: Consumer<LanguageManager>(

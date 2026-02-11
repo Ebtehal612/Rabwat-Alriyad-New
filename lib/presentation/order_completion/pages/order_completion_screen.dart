@@ -12,7 +12,9 @@ import '../../../core/utils/validators.dart';
 
 class OrderCompletionScreen extends StatefulWidget {
   static const routeName = '/order-completion';
-  const OrderCompletionScreen({super.key});
+  final double? totalPrice;
+  
+  const OrderCompletionScreen({super.key, this.totalPrice});
 
   @override
   State<OrderCompletionScreen> createState() => _OrderCompletionScreenState();
@@ -127,7 +129,7 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                   child: Column(
                 children: [
                   CustomText.s22(
-                    '7,150 ${lz.sar}',
+                    '${(widget.totalPrice ?? 7150).toStringAsFixed(0)} ${lz.sar}',
                     bold: true,
                     color: Palette.dayBreakBlue.color7,
                   ),

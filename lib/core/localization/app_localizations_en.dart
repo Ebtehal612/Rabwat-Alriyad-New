@@ -532,4 +532,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalamountrequired => 'Total amount required';
+
+  @override
+  String get orderAddedToCart => 'Your order added to cart';
+
+  @override
+  String get shopnow => 'Shop now';
 }

@@ -3,6 +3,7 @@ import 'package:flutter_libphonenumber/flutter_libphonenumber.dart' as flp;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rabwat_alriyad_new/core/cubits/additions_cubit.dart';
+import 'package:rabwat_alriyad_new/core/cubits/cart_cubit.dart';
 import 'package:rabwat_alriyad_new/core/cubits/user_cubit.dart';
 import 'package:rabwat_alriyad_new/core/localization/language_manager.dart';
 import 'package:rabwat_alriyad_new/core/localization/localization_manager.dart' show LocaleCubit;
@@ -49,5 +50,6 @@ Future<void> init() async {
   // Cubits
   sl.registerLazySingleton<UserCubit>(() => UserCubit(sl()));
   sl.registerLazySingleton<AdditionsCubit>(() => AdditionsCubit());
+  sl.registerLazySingleton<CartCubit>(() => CartCubit());
   //sl.registerLazySingleton(() => ProfileCubit(sl()));
 }

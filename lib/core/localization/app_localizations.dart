@@ -1021,6 +1021,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total amount required'**
   String get totalamountrequired;
+
+  /// No description provided for @orderAddedToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Your order added to cart'**
+  String get orderAddedToCart;
+
+  /// No description provided for @shopnow.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop now'**
+  String get shopnow;
 }
 
 class _AppLocalizationsDelegate

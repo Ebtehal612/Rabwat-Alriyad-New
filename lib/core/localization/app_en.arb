@@ -216,5 +216,7 @@
   "cartEmpty": "Your cart is empty",
   "emailHint": "example@email.com",
   "mobileHint": "05xxxxxxxx",
-  "totalamountrequired":"Total amount required"
+  "totalamountrequired":"Total amount required",
+  "orderAddedToCart":"Your order added to cart",
+  "shopnow":"Shop now"
 }

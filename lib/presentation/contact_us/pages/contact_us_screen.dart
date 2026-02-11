@@ -30,6 +30,7 @@ class ContactUsScreen extends StatelessWidget {
             fontSize: 20.sp,
           ),
         ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -73,10 +74,7 @@ class ContactUsScreen extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Palette.dayBreakBlue.color7,
-            Palette.dayBreakBlue.color9,
-          ],
+          colors: [Palette.dayBreakBlue.color7, Palette.dayBreakBlue.color9],
         ),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(30.r),
@@ -252,8 +250,11 @@ class ContactUsScreen extends StatelessWidget {
                   color: Palette.dayBreakBlue.color1.withValues(alpha: 0.5),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.email_outlined,
-                    color: Palette.dayBreakBlue.color7, size: 24.sp),
+                child: Icon(
+                  Icons.email_outlined,
+                  color: Palette.dayBreakBlue.color7,
+                  size: 24.sp,
+                ),
               ),
               SizedBox(width: 16.w),
               Expanded(
@@ -323,10 +324,7 @@ class ContactUsScreen extends StatelessWidget {
           children: [
             _buildSocialItem('assets/images/insta.png', lz.instagram),
             SizedBox(width: 24.w),
-            _buildSocialItem(
-              'assets/images/snap.png',
-              lz.snapchat,
-            ),
+            _buildSocialItem('assets/images/snap.png', lz.snapchat),
           ],
         ),
       ],
@@ -351,10 +349,7 @@ class ContactUsScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(
-              imagePath,
-              height: 40.h,
-            ),
+            Image.asset(imagePath, height: 40.h),
             SizedBox(height: 12.h),
             Text(
               label,
@@ -457,8 +452,11 @@ class ContactUsScreen extends StatelessWidget {
               CustomButton(
                 text: lz.sendMessageButton,
                 onPressed: () {},
-                icon:
-                    Icon(Icons.send_rounded, color: Colors.white, size: 20.sp),
+                icon: Icon(
+                  Icons.send_rounded,
+                  color: Colors.white,
+                  size: 20.sp,
+                ),
                 backgroundColor: Palette.dayBreakBlue.color7,
                 borderRadius: 16.r,
                 isTextBold: true,

@@ -8,6 +8,9 @@ import '../../order_completion/pages/order_completion_screen.dart';
 import '../pages/additions_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/cubits/additions_cubit.dart';
+import '../../../core/cubits/cart_cubit.dart';
+import '../../../core/models/cart_item.dart';
+import 'package:toastification/toastification.dart';
 
 class ProductCard extends StatelessWidget {
   final String name;
@@ -22,6 +25,31 @@ class ProductCard extends StatelessWidget {
     required this.price,
     this.onTap,
   });
+
+  static Map<String, double> _getAdditionPrices() {
+    return {
+      'Lamb Liver': 85,
+      'كبدة غنم': 85,
+      'Lamb Trotters': 50,
+      'كوارع غنم': 50,
+      'Lamb Tripe': 35,
+      'كرشة غنم': 35,
+    };
+  }
+
+  double _calculateTotalPrice(BuildContext context) {
+    final basePrice = double.tryParse(price) ?? 0;
+    final additionsCubit = context.read<AdditionsCubit>();
+    final additions = additionsCubit.getAdditions(name);
+    final additionPrices = _getAdditionPrices();
+    
+    double additionsTotal = 0;
+    for (var addition in additions) {
+      additionsTotal += additionPrices[addition] ?? 0;
+    }
+    
+    return basePrice + additionsTotal;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +172,37 @@ class ProductCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final cartCubit = context.read<CartCubit>();
+                          final additionsCubit = context.read<AdditionsCubit>();
+                          final additions = additionsCubit.getAdditions(name);
+                          final additionPrices = _getAdditionPrices();
+                          
+                          final cartItem = CartItem(
+                            productName: name,
+                            imagePath: imagePath,
+                            basePrice: double.tryParse(price) ?? 0,
+                            additions: additions,
+                            additionPrices: additionPrices,
+                            quantity: 1,
+                          );
+                          
+                          cartCubit.addToCart(cartItem);
+                          
+                          toastification.show(
+                            context: context,
+                            type: ToastificationType.success,
+                            style: ToastificationStyle.flat,
+                            autoCloseDuration: const Duration(seconds: 3),
+                            title: CustomText.s14(
+                              AppLocalizations.of(context)!.orderAddedToCart,
+                              color: Palette.dayBreakBlue.color7,
+                              bold: true,
+                            ),
+                            alignment: Alignment.topCenter,
+                            showProgressBar: false,
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Palette.dayBreakBlue.color7,
                           foregroundColor: Colors.white,
@@ -164,7 +222,11 @@ class ProductCard extends StatelessWidget {
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              context.push(OrderCompletionScreen.routeName);
+                              final totalPrice = _calculateTotalPrice(context);
+                              context.push(
+                                OrderCompletionScreen.routeName,
+                                extra: totalPrice,
+                              );
                             },
                             style: OutlinedButton.styleFrom(
                               side: BorderSide(

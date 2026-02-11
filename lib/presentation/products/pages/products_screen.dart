@@ -79,8 +79,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
     // Filter logic
     final filteredProducts = products.where((product) {
-      final matchesSearch =
-          product['name']!.toLowerCase().contains(_searchQuery.toLowerCase());
+      final matchesSearch = product['name']!.toLowerCase().contains(
+        _searchQuery.toLowerCase(),
+      );
       final matchesFilter =
           _selectedFilter == 'all' || product['type'] == _selectedFilter;
       return matchesSearch && matchesFilter;
@@ -93,35 +94,41 @@ class _ProductsScreenState extends State<ProductsScreen> {
           textDirection: TextDirection.rtl,
           child: Container(
             color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12.r),
-                  child: Image.asset(
-                    'assets/images/sheep.png',
-                    height: 80.h,
-                    width: 80.w,
-                    fit: BoxFit.cover,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12.r),
+                    child: Image.asset(
+                      'assets/images/sheep.png',
+                      height: 80.h,
+                      width: 80.w,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                12.horizontalSpace,
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText.s18(
-                      AppLocalizations.of(context)!.rabwatalriyad,
-                      color: Palette.dayBreakBlue.color7,
+                  10.horizontalSpace,
+                  Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CustomText.s18(
+                          AppLocalizations.of(context)!.rabwatalriyad,
+                          color: Palette.dayBreakBlue.color7,
+                        ),
+                        4.verticalSpace,
+                        CustomText.s12(
+                          AppLocalizations.of(context)!.thebestinKingdom,
+                          color: Palette.neutral.color7,
+                        ),
+                      ],
                     ),
-                    4.verticalSpace,
-                    CustomText.s12(
-                      AppLocalizations.of(context)!.thebestinKingdom,
-                      color: Palette.neutral.color7,
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -138,14 +145,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 });
               },
               decoration: InputDecoration(
-                hintText: localizations
-                    .choose(localizations.products), // Simplified hint
+                hintText: localizations.choose(
+                  localizations.products,
+                ), // Simplified hint
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.r),
                 ),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                  vertical: 12.h,
+                ),
               ),
             ),
           ),
@@ -215,9 +225,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           }
         },
         selectedColor: Palette.dayBreakBlue.color7,
-        labelStyle: TextStyle(
-          color: isSelected ? Colors.white : Colors.black,
-        ),
+        labelStyle: TextStyle(color: isSelected ? Colors.white : Colors.black),
         backgroundColor: Colors.grey.withValues(alpha: 0.2),
       ),
     );

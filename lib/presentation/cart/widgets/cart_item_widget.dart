@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/theme/palette.dart';
 import '../../../core/localization/localization_manager.dart';
+import 'package:go_router/go_router.dart';
+import '../../order_completion/pages/order_completion_screen.dart';
 
 class CartItemWidget extends StatelessWidget {
   final String title;
@@ -32,27 +34,60 @@ class CartItemWidget extends StatelessWidget {
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
         color: const Color(
-            0xffEEEEEE), // Matching the light grey background in image
+          0xffEEEEEE,
+        ), // Matching the light grey background in image
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Stack(
         children: [
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15.r),
-                child: Image.asset(
-                  imagePath,
-                  width: 100.w,
-                  height: 100.h,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    width: 100.w,
-                    height: 80.h,
-                    color: Colors.grey[300],
-                    child: Icon(Icons.image, color: Colors.grey),
+              Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15.r),
+                    child: Image.asset(
+                      imagePath,
+                      width: 100.w,
+                      height: 100.h,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        width: 100.w,
+                        height: 80.h,
+                        color: Colors.grey[300],
+                        child: Icon(Icons.image, color: Colors.grey),
+                      ),
+                    ),
                   ),
-                ),
+                  8.verticalSpace,
+                  ElevatedButton(
+                    onPressed: () {
+                      context.push(
+                        OrderCompletionScreen.routeName,
+                        extra: subtotal,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Palette.dayBreakBlue.color7,
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                        vertical: 6.h,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
+                      minimumSize: Size(100.w, 32.h),
+                    ),
+                    child: Text(
+                      lz.payNow,
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               20.horizontalSpace,
               // Product Details
@@ -75,6 +110,7 @@ class CartItemWidget extends StatelessWidget {
                                   color: Palette.dayBreakBlue.color7,
                                 ),
                               ),
+                              12.verticalSpace,
                               Text(
                                 '${price.toInt()} ${lz.sar}',
                                 style: TextStyle(
@@ -146,11 +182,7 @@ class CartItemWidget extends StatelessWidget {
                   color: Palette.dustRed.color5,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: 14.sp,
-                ),
+                child: Icon(Icons.close, color: Colors.white, size: 14.sp),
               ),
             ),
           ),
@@ -160,40 +192,38 @@ class CartItemWidget extends StatelessWidget {
   }
 
   Widget _buildQuantityControls() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            onPressed: onIncrement,
-            icon: Icon(Icons.add_circle_outline,
-                color: Palette.dayBreakBlue.color7, size: 24.sp),
-            constraints: const BoxConstraints(),
-            padding: EdgeInsets.zero,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          onPressed: onIncrement,
+          icon: Icon(
+            Icons.add_circle_outline,
+            color: Palette.dayBreakBlue.color7,
+            size: 24.sp,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-            child: Text(
-              '$quantity',
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                color: Palette.dayBreakBlue.color7,
-              ),
-            ),
+          constraints: const BoxConstraints(),
+          padding: EdgeInsets.zero,
+        ),
+        Text(
+          '$quantity',
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+            color: Palette.dayBreakBlue.color7,
           ),
-          IconButton(
-            onPressed: onDecrement,
-            icon: Icon(Icons.remove_circle_outline,
-                color: Palette.dayBreakBlue.color7, size: 24.sp),
-            constraints: const BoxConstraints(),
-            padding: EdgeInsets.zero,
+        ),
+        IconButton(
+          onPressed: onDecrement,
+          icon: Icon(
+            Icons.remove_circle_outline,
+            color: Palette.dayBreakBlue.color7,
+            size: 24.sp,
           ),
-        ],
-      ),
+          constraints: const BoxConstraints(),
+          padding: EdgeInsets.zero,
+        ),
+      ],
     );
   }
 }
