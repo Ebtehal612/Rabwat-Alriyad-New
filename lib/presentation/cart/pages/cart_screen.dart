@@ -52,7 +52,7 @@ class CartScreen extends StatelessWidget {
                     children: [
                       OutlinedButton(
                         onPressed: () {
-                          context.push(ProductsScreen.routeName);
+                          context.go(ProductsScreen.routeName);
                         },
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Palette.dayBreakBlue.color7),

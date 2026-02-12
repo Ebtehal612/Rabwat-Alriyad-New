@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import '../../../app/di/injection_container.dart';
 import '../../../core/localization/localization_manager.dart';
 import '../../../core/utils/validators.dart';
@@ -11,15 +10,62 @@ import '../../../core/theme/palette.dart';
 import '../../../core/widgets/buttons/custom_button.dart';
 import '../../../core/widgets/fields/custom_input.dart';
 
-class ContactUsScreen extends StatelessWidget {
+class ContactUsScreen extends StatefulWidget {
   static const routeName = '/contact-us';
 
   const ContactUsScreen({super.key});
 
   @override
+  State<ContactUsScreen> createState() => _ContactUsScreenState();
+}
+
+class _ContactUsScreenState extends State<ContactUsScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _messageController = TextEditingController();
+
+  bool _isButtonEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.addListener(_validateForm);
+    _phoneController.addListener(_validateForm);
+    _emailController.addListener(_validateForm);
+    _messageController.addListener(_validateForm);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _messageController.dispose();
+    super.dispose();
+  }
+
+  void _validateForm() {
+    final validators = sl<Validators>();
+    setState(() {
+      final isNameValid = _nameController.text.trim().isNotEmpty;
+      final isPhoneValid =
+          validators.saudiMobile(_phoneController.text) == null;
+      final isEmailValid = validators.email(_emailController.text) == null;
+      final isMessageValid = _messageController.text.trim().isNotEmpty;
+
+      _isButtonEnabled =
+          isNameValid && isPhoneValid && isEmailValid && isMessageValid;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final lz = AppLocalizations.of(context)!;
+
     return Scaffold(
+      backgroundColor: const Color(0xffF9F9F9),
       appBar: AppBar(
         title: Text(
           lz.contactUs,
@@ -103,7 +149,7 @@ class ContactUsScreen extends StatelessWidget {
               lz.livestockSubtitle,
               style: TextStyle(
                 fontSize: 14.sp,
-                color: Colors.white.withValues(alpha: 0.8),
+                color: Colors.white,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -139,7 +185,7 @@ class ContactUsScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.r),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xff3B6C4C).withValues(alpha: 0.3),
+                color: const Color(0xff3B6C4C).withOpacity(0.3),
                 blurRadius: 15,
                 offset: const Offset(0, 8),
               ),
@@ -163,7 +209,7 @@ class ContactUsScreen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(8.r),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
+                        color: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Image.asset(
@@ -189,7 +235,7 @@ class ContactUsScreen extends StatelessWidget {
                           Text(
                             lz.instantChat,
                             style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.8),
+                              color: Colors.white,
                               fontSize: 14.sp,
                             ),
                           ),
@@ -245,7 +291,7 @@ class ContactUsScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(12.r),
                 decoration: BoxDecoration(
-                  color: Palette.dayBreakBlue.color1.withValues(alpha: 0.5),
+                  color: Palette.dayBreakBlue.color1.withOpacity(0.5),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -291,7 +337,7 @@ class ContactUsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.2),
+        color: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Icon(icon, color: Colors.white, size: 20.sp),
@@ -364,6 +410,9 @@ class ContactUsScreen extends StatelessWidget {
   }
 
   Widget _buildContactForm() {
+    final lz = AppLocalizations.of(context)!;
+    final validators = sl<Validators>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -390,76 +439,92 @@ class ContactUsScreen extends StatelessWidget {
             border: Border.all(color: Colors.grey.shade100),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.03),
+                color: Colors.black.withOpacity(0.03),
                 blurRadius: 15,
                 offset: const Offset(0, 5),
               ),
             ],
           ),
-          child: Column(
-            children: [
-              CustomInput(
-                title: lz.fullName,
-                hint: lz.enterFullName,
-                hintColor: Palette.neutral.color7,
-                controller: TextEditingController(),
-                backgroundColor: const Color(0xffF9F9F9),
-                border: true,
-                prefix: Icon(Icons.person_outline, color: Colors.grey[400]),
-              ),
-              SizedBox(height: 20.h),
-              CustomInput(
-                title: lz.mobileNumber,
-                hint: lz.mobileHint,
-                hintColor: Palette.neutral.color7,
-                controller: TextEditingController(),
-                backgroundColor: const Color(0xffF9F9F9),
-                border: true,
-                prefix: Icon(Icons.phone_android, color: Colors.grey[400]),
-                keyboardType: TextInputType.phone,
-                validator: sl<Validators>().saudiMobile,
-                inputFormatters: [
-                  LibPhonenumberTextFormatter(
-                    country: sl<CountryWithPhoneCode>(),
-                    inputContainsCountryCode: true,
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              CustomInput(
-                title: lz.emailAddress,
-                hint: lz.emailHint,
-                hintColor: Palette.neutral.color7,
-                controller: TextEditingController(),
-                backgroundColor: const Color(0xffF9F9F9),
-                border: true,
-                prefix: Icon(Icons.email_outlined, color: Colors.grey[400]),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 20.h),
-              CustomInput(
-                title: lz.message,
-                hint: lz.writeMessageHere,
-                hintColor: Palette.neutral.color7,
-                controller: TextEditingController(),
-                backgroundColor: const Color(0xffF9F9F9),
-                border: true,
-                keyboardType: TextInputType.multiline,
-              ),
-              SizedBox(height: 32.h),
-              CustomButton(
-                text: lz.sendMessageButton,
-                onPressed: () {},
-                icon: Icon(
-                  Icons.send_rounded,
-                  color: Colors.white,
-                  size: 20.sp,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                CustomInput(
+                  title: lz.fullName,
+                  hint: lz.enterFullName,
+                  hintColor: Palette.neutral.color7,
+                  controller: _nameController,
+                  backgroundColor: const Color(0xffF9F9F9),
+                  border: true,
+                  prefix: Icon(Icons.person_outline, color: Colors.grey[400]),
+                  validator: (val) =>
+                      validators.required(val, title: lz.fullName),
                 ),
-                backgroundColor: Palette.dayBreakBlue.color7,
-                borderRadius: 16.r,
-                isTextBold: true,
-              ),
-            ],
+                SizedBox(height: 20.h),
+                CustomInput(
+                  controller: _phoneController,
+                  title: lz.mobileNumber,
+                  hint: '05xxxxxxxx',
+                  hintColor: Palette.neutral.color7,
+                  prefix: Icon(Icons.phone_android, color: Colors.grey[400]),
+                  backgroundColor: const Color(0xffF9F9F9),
+                  border: true,
+                  keyboardType: TextInputType.phone,
+                  validator: (val) => validators.saudiMobile(val),
+                ),
+                SizedBox(height: 20.h),
+                CustomInput(
+                  title: lz.emailAddress,
+                  hint: lz.emailHint,
+                  hintColor: Palette.neutral.color7,
+                  controller: _emailController,
+                  backgroundColor: const Color(0xffF9F9F9),
+                  border: true,
+                  prefix: Icon(Icons.email_outlined, color: Colors.grey[400]),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (val) => validators.email(val),
+                ),
+                SizedBox(height: 20.h),
+                CustomInput(
+                  title: lz.message,
+                  hint: lz.writeMessageHere,
+                  hintColor: Palette.neutral.color7,
+                  controller: _messageController,
+                  backgroundColor: const Color(0xffF9F9F9),
+                  border: true,
+                  keyboardType: TextInputType.multiline,
+                  validator: (val) =>
+                      validators.required(val, title: lz.message),
+                ),
+                SizedBox(height: 32.h),
+                CustomButton(
+                  text: lz.sendMessageButton,
+                  onPressed: _isButtonEnabled
+                      ? () {
+                          if (_formKey.currentState!.validate()) {
+                            // Handle message submission
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(lz.sendMessageButton),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          }
+                        }
+                      : null,
+                  icon: Icon(
+                    Icons.send_rounded,
+                    color: _isButtonEnabled ? Colors.white : Colors.grey,
+                    size: 20.sp,
+                  ),
+                  backgroundColor: _isButtonEnabled
+                      ? Palette.dayBreakBlue.color7
+                      : Palette.neutral.color4,
+                  borderRadius: 16.r,
+                  isTextBold: true,
+                ),
+              ],
+            ),
           ),
         ),
       ],

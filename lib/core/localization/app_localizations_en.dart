@@ -538,4 +538,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shopnow => 'Shop now';
+
+  @override
+  String get pay => 'Pay';
+
+  @override
+  String get ordernow => 'Order now';
 }

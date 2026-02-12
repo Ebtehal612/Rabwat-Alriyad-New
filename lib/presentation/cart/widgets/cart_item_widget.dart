@@ -77,10 +77,10 @@ class CartItemWidget extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.r),
                       ),
-                      minimumSize: Size(100.w, 32.h),
+                      minimumSize: Size(90.w, 32.h),
                     ),
                     child: Text(
-                      lz.payNow,
+                      lz.pay,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.bold,

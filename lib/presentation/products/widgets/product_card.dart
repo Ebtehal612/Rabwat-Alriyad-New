@@ -58,41 +58,40 @@ class ProductCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Image Section
             Container(
-              height: 180.h,
+              height: 200.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
-                color: Palette.dayBreakBlue.color7.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+                color: Palette.dayBreakBlue.color7.withOpacity(0.1),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                 child: Image.asset(
                   imagePath,
-                  height: 120.h,
+                  height: 200.h,
                   width: double.infinity,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
-                      height: 120.h,
+                      height: 200.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Palette.dayBreakBlue.color7.withValues(
-                          alpha: 0.1,
-                        ),
+                        color: Palette.dayBreakBlue.color7.withOpacity(0.1),
                         borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(12.r),
+                          top: Radius.circular(16.r),
                         ),
                       ),
                       child: Column(
@@ -101,16 +100,12 @@ class ProductCard extends StatelessWidget {
                           Icon(
                             Icons.image_not_supported,
                             size: 40.sp,
-                            color: Palette.dayBreakBlue.color7.withValues(
-                              alpha: 0.5,
-                            ),
+                            color: Palette.dayBreakBlue.color7.withOpacity(0.5),
                           ),
                           8.verticalSpace,
                           CustomText.s12(
                             'Image not found',
-                            color: Palette.dayBreakBlue.color7.withValues(
-                              alpha: 0.5,
-                            ),
+                            color: Palette.dayBreakBlue.color7.withOpacity(0.5),
                           ),
                         ],
                       ),
@@ -119,247 +114,231 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             ),
+
+            // Content Section
             Padding(
-              padding: EdgeInsets.all(12.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  // Name and Price Row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomText.s18(
+                      // Name on the right
+                      CustomText.s20(
                         name,
                         color: Palette.dayBreakBlue.color7,
                         bold: true,
-                        overflow: true,
                       ),
-                      4.verticalSpace,
-                      CustomText.s10(
-                        AppLocalizations.of(context)!.priceLabel,
-                        color: Palette.neutral.color7,
-                        bold: true,
-                      ),
-                      4.verticalSpace,
+                      // Price on the left
                       Row(
-                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          CustomText.s18(
+                          CustomText.s10(
+                            AppLocalizations.of(context)!.priceLabel,
+                            color: Palette.neutral.color7,
+                          ),
+                          4.horizontalSpace,
+                          CustomText.s24(
                             price,
                             color: Palette.dayBreakBlue.color7,
                             bold: true,
                           ),
                           4.horizontalSpace,
-                          CustomText.s12(
+                          CustomText.s14(
                             AppLocalizations.of(context)!.sar,
                             color: Palette.dayBreakBlue.color7,
                             bold: true,
                           ),
                         ],
                       ),
-                      4.verticalSpace,
-                      BlocBuilder<AdditionsCubit, Map<String, List<String>>>(
-                        builder: (context, state) {
-                          final additions = state[name] ?? [];
-                          if (additions.isEmpty) return const SizedBox.shrink();
-                          return Padding(
-                            padding: EdgeInsets.only(top: 4.h),
-                            child: SizedBox(
-                              width: 150.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(
-                                  (additions.length / 2).ceil(),
-                                  (rowIndex) {
-                                    final startIndex = rowIndex * 2;
-                                    final endIndex = (startIndex + 2).clamp(
-                                      0,
-                                      additions.length,
-                                    );
-                                    final rowAdditions = additions.sublist(
-                                      startIndex,
-                                      endIndex,
-                                    );
+                    ],
+                  ),
 
-                                    return Padding(
-                                      padding: EdgeInsets.only(bottom: 6.h),
-                                      child: Row(
-                                        children: rowAdditions.map((addition) {
-                                          return Padding(
-                                            padding: EdgeInsets.only(
-                                              right: 6.w,
-                                            ),
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 8.w,
-                                                vertical: 4.h,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: Colors.green.withOpacity(
-                                                  0.1,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.r),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  CustomText.s9(
-                                                    addition,
-                                                    color:
-                                                        Colors.green.shade700,
-                                                  ),
-                                                  4.horizontalSpace,
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      context
-                                                          .read<
-                                                            AdditionsCubit
-                                                          >()
-                                                          .removeAddition(
-                                                            name,
-                                                            addition,
-                                                          );
-                                                    },
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      size: 14.sp,
-                                                      color:
-                                                          Colors.green.shade700,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    );
-                                  },
-                                ),
+                  // Additions Display
+                  BlocBuilder<AdditionsCubit, Map<String, List<String>>>(
+                    builder: (context, state) {
+                      final additions = state[name] ?? [];
+                      if (additions.isEmpty) return const SizedBox.shrink();
+
+                      return Padding(
+                        padding: EdgeInsets.only(top: 12.h),
+                        child: Wrap(
+                          spacing: 6.w,
+                          runSpacing: 6.h,
+                          children: additions.map((addition) {
+                            return Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.w,
+                                vertical: 4.h,
                               ),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CustomText.s10(
+                                    addition,
+                                    color: Colors.green.shade700,
+                                  ),
+                                  4.horizontalSpace,
+                                  GestureDetector(
+                                    onTap: () {
+                                      context
+                                          .read<AdditionsCubit>()
+                                          .removeAddition(name, addition);
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 14.sp,
+                                      color: Colors.green.shade700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      );
+                    },
+                  ),
+
+                  16.verticalSpace,
+
+                  // Two Outlined Buttons Row
+                  Row(
+                    children: [
+                      // Add to Cart Button
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            final cartCubit = context.read<CartCubit>();
+                            final additionsCubit = context
+                                .read<AdditionsCubit>();
+                            final additions = additionsCubit.getAdditions(name);
+                            final additionPrices = _getAdditionPrices();
+
+                            final cartItem = CartItem(
+                              productName: name,
+                              imagePath: imagePath,
+                              basePrice: double.tryParse(price) ?? 0,
+                              additions: additions,
+                              additionPrices: additionPrices,
+                              quantity: 1,
+                            );
+
+                            cartCubit.addToCart(cartItem);
+
+                            // Clear additions after adding to cart
+                            additionsCubit.clearAdditions(name);
+
+                            toastification.show(
+                              context: context,
+                              type: ToastificationType.success,
+                              style: ToastificationStyle.flat,
+                              backgroundColor: Colors.green.shade500,
+                              autoCloseDuration: const Duration(seconds: 3),
+                              title: CustomText.s14(
+                                AppLocalizations.of(context)!.orderAddedToCart,
+                                color: Colors.white,
+                                bold: true,
+                              ),
+                              primaryColor: Colors.white,
+                              foregroundColor: Colors.white,
+                              alignment: Alignment.topCenter,
+                              showProgressBar: false,
+                            );
+                          },
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(
+                              color: Palette.dayBreakBlue.color7,
+                              width: 1.5,
                             ),
-                          );
-                        },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.r),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 12.h),
+                          ),
+                          child: CustomText.s14(
+                            AppLocalizations.of(context)!.addtocart,
+                            color: Palette.dayBreakBlue.color7,
+                          ),
+                        ),
+                      ),
+
+                      12.horizontalSpace,
+
+                      // Additions Button
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            context.push('${AdditionsScreen.routeName}/$name');
+                          },
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(
+                              color: Palette.dayBreakBlue.color7,
+                              width: 1.5,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.r),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 12.h),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add,
+                                color: Palette.dayBreakBlue.color7,
+                                size: 18.sp,
+                              ),
+                              4.horizontalSpace,
+                              CustomText.s14(
+                                AppLocalizations.of(context)!.additions,
+                                color: Palette.dayBreakBlue.color7,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                  // Left Side: Buttons and Actions
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          final cartCubit = context.read<CartCubit>();
-                          final additionsCubit = context.read<AdditionsCubit>();
-                          final additions = additionsCubit.getAdditions(name);
-                          final additionPrices = _getAdditionPrices();
 
-                          final cartItem = CartItem(
-                            productName: name,
-                            imagePath: imagePath,
-                            basePrice: double.tryParse(price) ?? 0,
-                            additions: additions,
-                            additionPrices: additionPrices,
-                            quantity: 1,
-                          );
+                  12.verticalSpace,
 
-                          cartCubit.addToCart(cartItem);
+                  // Full Width Pay Now Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final totalPrice = _calculateTotalPrice(context);
+                        final additionsCubit = context.read<AdditionsCubit>();
 
-                          // Clear additions after adding to cart
-                          additionsCubit.clearAdditions(name);
+                        context.push(
+                          OrderCompletionScreen.routeName,
+                          extra: totalPrice,
+                        );
 
-                          toastification.show(
-                            context: context,
-                            type: ToastificationType.success,
-                            style: ToastificationStyle.flat,
-                            backgroundColor: Colors.green.shade500,
-                            autoCloseDuration: const Duration(seconds: 3),
-                            title: CustomText.s14(
-                              AppLocalizations.of(context)!.orderAddedToCart,
-                              color: Colors.white,
-                              bold: true,
-                            ),
-                            primaryColor: Colors.white,
-                            foregroundColor: Colors.white,
-                            alignment: Alignment.topCenter,
-                            showProgressBar: false,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Palette.dayBreakBlue.color7,
-                          foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 50.w,
-                            vertical: 8.h,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.r),
-                          ),
+                        // Clear additions after paying
+                        additionsCubit.clearAdditions(name);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Palette.dayBreakBlue.color7,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 14.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.r),
                         ),
-                        child: CustomText.s12(
-                          AppLocalizations.of(context)!.addtocart,
-                          color: Colors.white,
-                        ),
+                        elevation: 0,
                       ),
-                      12.verticalSpace,
-                      Row(
-                        children: [
-                          OutlinedButton(
-                            onPressed: () {
-                              final totalPrice = _calculateTotalPrice(context);
-                              final additionsCubit = context
-                                  .read<AdditionsCubit>();
-
-                              context.push(
-                                OrderCompletionScreen.routeName,
-                                extra: totalPrice,
-                              );
-
-                              // Clear additions after paying
-                              additionsCubit.clearAdditions(name);
-                            },
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(
-                                color: Palette.dayBreakBlue.color7,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.r),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 25.w,
-                                vertical: 2.h,
-                              ),
-                            ),
-                            child: CustomText.s10(
-                              AppLocalizations.of(context)!.payNow,
-                              color: Palette.dayBreakBlue.color7,
-                            ),
-                          ),
-                          10.horizontalSpace,
-                          InkWell(
-                            onTap: () {
-                              context.push(
-                                '${AdditionsScreen.routeName}/$name',
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.add_circle_outline,
-                                  color: Palette.dayBreakBlue.color7,
-                                  size: 20.sp,
-                                ),
-                                4.horizontalSpace,
-                                CustomText.s12(
-                                  AppLocalizations.of(context)!.additions,
-                                  color: Palette.dayBreakBlue.color7,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      child: CustomText.s16(
+                        AppLocalizations.of(context)!.ordernow,
+                        color: Colors.white,
+                        bold: true,
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),

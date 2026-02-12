@@ -536,4 +536,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get shopnow => 'تسوق الآن';
+
+  @override
+  String get pay => 'ادفع';
+
+  @override
+  String get ordernow => 'اطلب الآن';
 }

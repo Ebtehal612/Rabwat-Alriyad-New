@@ -164,5 +164,7 @@
   "mobileHint": "05xxxxxxxx",
   "totalamountrequired":"المبلغ الإجمالي المطلوب",
   "orderAddedToCart":"تمت إضافة طلبك إلى السلة",
-  "shopnow":"تسوق الآن"
+  "shopnow":"تسوق الآن",
+  "pay":"ادفع",
+  "ordernow":"اطلب الآن"
 }

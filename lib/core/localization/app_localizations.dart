@@ -1033,6 +1033,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shop now'**
   String get shopnow;
+
+  /// No description provided for @pay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get pay;
+
+  /// No description provided for @ordernow.
+  ///
+  /// In en, this message translates to:
+  /// **'Order now'**
+  String get ordernow;
 }
 
 class _AppLocalizationsDelegate

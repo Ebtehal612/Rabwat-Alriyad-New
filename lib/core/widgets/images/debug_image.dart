@@ -43,8 +43,8 @@ class DebugImage extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Palette.dayBreakBlue.color7.withOpacity(0.8),
-                Palette.dayBreakBlue.color9.withOpacity(0.8),
+                Palette.dayBreakBlue.color7,
+                Palette.dayBreakBlue.color9,
               ],
             ),
           ),

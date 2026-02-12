@@ -21,7 +21,7 @@ class EidOfferCard extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Palette.dayBreakBlue.color7.withValues(alpha: 0.9),
+            Palette.dayBreakBlue.color7,
             Palette.dayBreakBlue.color9,
           ],
         ),
@@ -31,13 +31,13 @@ class EidOfferCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
+              color: Colors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(40.r),
             ),
             child: Icon(
               Icons.card_giftcard,
               size: 48.sp,
-              color: Colors.white.withValues(alpha: 0.8),
+              color: Colors.white,
             ),
           ),
           16.verticalSpace,
@@ -49,7 +49,7 @@ class EidOfferCard extends StatelessWidget {
           8.verticalSpace,
           CustomText.s14(
             AppLocalizations.of(context)!.bookNowDiscount,
-            color: Colors.white.withValues(alpha: 0.8),
+            color: Colors.white,
             center: true,
           ),
           24.verticalSpace,
@@ -87,9 +87,10 @@ class EidOfferCard extends StatelessWidget {
                   CustomText.s16(
                     AppLocalizations.of(context)!.bookYourSacrifice,
                     bold: true,
+                    color: Colors.black,
                   ),
                   8.horizontalSpace,
-                  Icon(Icons.shopping_bag, size: 20.sp),
+                  Icon(Icons.shopping_bag, size: 20.sp, color: Colors.black),
                 ],
               ),
             ),
@@ -97,7 +98,7 @@ class EidOfferCard extends StatelessWidget {
           16.verticalSpace,
           CustomText.s12(
             AppLocalizations.of(context)!.offerValidUntil,
-            color: Colors.white.withValues(alpha: 0.6),
+            color: Colors.white,
           ),
         ],
       ),
@@ -109,7 +110,7 @@ class EidOfferCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       constraints: BoxConstraints(minWidth: 60.w),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.2),
+        color: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Column(
@@ -122,7 +123,7 @@ class EidOfferCard extends StatelessWidget {
           4.verticalSpace,
           CustomText.s10(
             unit,
-            color: Colors.white.withValues(alpha: 0.8),
+            color: Colors.white,
           ),
         ],
       ),
@@ -134,7 +135,7 @@ class EidOfferCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8.w),
       child: CustomText.s18(
         ':',
-        color: Colors.white.withValues(alpha: 0.5),
+        color: Colors.white,
         bold: true,
       ),
     );

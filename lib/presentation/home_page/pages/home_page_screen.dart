@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:rabwat_alriyad_new/presentation/cart/pages/cart_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rabwat_alriyad_new/core/cubits/cart_cubit.dart';
+import 'package:rabwat_alriyad_new/core/models/cart_item.dart';
+import 'package:toastification/toastification.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/localization/app_localizations.dart';
 import '../../../core/localization/language_manager.dart';
@@ -136,8 +139,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Palette.dayBreakBlue.color7.withOpacity(0.8),
-                        Palette.dayBreakBlue.color9.withOpacity(0.8),
+                        Palette.dayBreakBlue.color7,
+                        Palette.dayBreakBlue.color9,
                       ],
                     ),
                   ),
@@ -184,7 +187,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      context.push(ProductsScreen.routeName);
+                      context.go(ProductsScreen.routeName);
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(250.w, 50.h),
@@ -204,6 +207,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         CustomText.s14(
                           AppLocalizations.of(context)!.viewAllLivestock,
                           bold: true,
+                          color: Colors.white,
                         ),
                         8.horizontalSpace,
                         Icon(
@@ -211,6 +215,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               ? Icons.arrow_forward_ios
                               : Icons.arrow_forward_ios,
                           size: 16.sp,
+                          color: Colors.white,
                         ),
                       ],
                     ),
@@ -321,7 +326,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ),
                 TextButton(
                   onPressed: () {
-                    context.push(ProductsScreen.routeName);
+                    context.go(ProductsScreen.routeName);
                   },
                   child: Row(
                     children: [
@@ -674,7 +679,39 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              context.push(CartScreen.routeName);
+                              final cartCubit = context.read<CartCubit>();
+
+                              final cartItem = CartItem(
+                                productName: AppLocalizations.of(
+                                  context,
+                                )!.localcow,
+                                imagePath: 'assets/images/cow.png',
+                                basePrice: 1250,
+                                additions: [],
+                                additionPrices: {},
+                                quantity: 1,
+                              );
+
+                              cartCubit.addToCart(cartItem);
+
+                              toastification.show(
+                                context: context,
+                                type: ToastificationType.success,
+                                style: ToastificationStyle.flat,
+                                autoCloseDuration: const Duration(seconds: 3),
+                                backgroundColor: Colors.green.shade500,
+                                title: CustomText.s14(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.orderAddedToCart,
+                                  color: Colors.white,
+                                  bold: true,
+                                ),
+                                primaryColor: Colors.white,
+                                foregroundColor: Colors.white,
+                                alignment: Alignment.topCenter,
+                                showProgressBar: false,
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Palette.dayBreakBlue.color7,
@@ -692,9 +729,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               children: [
                                 CustomText.s12(
                                   AppLocalizations.of(context)!.addtocart,
+                                  color: Colors.white,
                                 ),
                                 8.horizontalSpace,
-                                Icon(Icons.arrow_forward_ios, size: 16.sp),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16.sp,
+                                  color: Colors.white,
+                                ),
                               ],
                             ),
                           ),

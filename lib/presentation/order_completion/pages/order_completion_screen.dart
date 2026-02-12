@@ -50,15 +50,18 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
   }
 
   void _validateForm() {
+    final validators = sl<Validators>();
     setState(() {
-      final isFieldsValid = _nameController.text.isNotEmpty &&
-          _phoneController.text.isNotEmpty &&
-          _addressController.text.isNotEmpty;
-
+      final isNameValid = _nameController.text.trim().isNotEmpty;
+      final isPhoneValid = validators.saudiMobile(_phoneController.text) == null;
+      final isAddressValid = _addressController.text.trim().isNotEmpty;
+      
+      // Discount code is optional, so we don't check it
+      
       final isPaymentValid = _selectedPaymentMethod == 'cash' ||
           (_selectedPaymentMethod == 'bank' && _receiptFile != null);
 
-      _isButtonEnabled = isFieldsValid && isPaymentValid;
+      _isButtonEnabled = isNameValid && isPhoneValid && isAddressValid && isPaymentValid;
     });
   }
 
@@ -214,62 +217,87 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                   setState(() => _selectedPaymentMethod = 'bank');
                   _validateForm();
                 },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(15.w),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    _selectedPaymentMethod == 'bank'
-                                        ? Icons.check_circle
-                                        : Icons.radio_button_unchecked,
-                                    color: _selectedPaymentMethod == 'bank'
-                                        ? Palette.dayBreakBlue.color7
-                                        : Palette.neutral.color5,
-                                    size: 26.sp,
-                                  ),
-                                  10.horizontalSpace,
-                                  CustomText.s14(
-                                    localizations.bankTransfer,
-                                    color: Palette.dayBreakBlue.color7,
-                                    bold: true,
-                                  ),
-                                ],
-                              ),
-                              10.verticalSpace,
-                              InkWell(
-                                onTap: _pickImage,
-                                child: Row(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: _selectedPaymentMethod == 'bank'
+                          ? Palette.dayBreakBlue.color7
+                          : Palette.neutral.color4,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(15.w),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
                                   children: [
-                                    26.horizontalSpace,
-                                    Icon(Icons.add_circle_outline,
-                                        size: 20.sp,
-                                        color: _receiptFile != null
-                                            ? Palette.dayBreakBlue.color7
-                                            : Palette.neutral.color7),
-                                    4.horizontalSpace,
-                                    Expanded(
-                                      child: CustomText.s12(
-                                        _receiptFile?.name ??
-                                            localizations.attachReceipt,
-                                        color: _receiptFile != null
-                                            ? Palette.dayBreakBlue.color7
-                                            : Palette.neutral.color7,
-                                        overflow: true,
-                                      ),
+                                    Icon(
+                                      _selectedPaymentMethod == 'bank'
+                                          ? Icons.check_circle
+                                          : Icons.radio_button_unchecked,
+                                      color: _selectedPaymentMethod == 'bank'
+                                          ? Palette.dayBreakBlue.color7
+                                          : Palette.neutral.color5,
+                                      size: 26.sp,
+                                    ),
+                                    10.horizontalSpace,
+                                    CustomText.s14(
+                                      localizations.bankTransfer,
+                                      color: Palette.dayBreakBlue.color7,
+                                      bold: true,
                                     ),
                                   ],
                                 ),
-                              ),
-                            ]),
+                                10.verticalSpace,
+                                InkWell(
+                                  onTap: _pickImage,
+                                  child: Row(
+                                    children: [
+                                      26.horizontalSpace,
+                                      Icon(
+                                        _receiptFile != null
+                                            ? Icons.check_circle
+                                            : Icons.add_circle_outline,
+                                        size: 20.sp,
+                                        color: _receiptFile != null
+                                            ? Colors.green
+                                            : Palette.neutral.color7,
+                                      ),
+                                      4.horizontalSpace,
+                                      Expanded(
+                                        child: CustomText.s12(
+                                          _receiptFile?.name ??
+                                              localizations.attachReceipt,
+                                          color: _receiptFile != null
+                                              ? Palette.dayBreakBlue.color7
+                                              : Palette.neutral.color7,
+                                          overflow: true,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                if (_selectedPaymentMethod == 'bank' && _receiptFile == null) ...[
+                                  5.verticalSpace,
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 26.w),
+                                    child: CustomText.s10(
+                                      '* ${localizations.attachReceipt}',
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ]),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               15.verticalSpace,
@@ -280,33 +308,44 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                   setState(() => _selectedPaymentMethod = 'cash');
                   _validateForm();
                 },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(15.h),
-                        child: Row(
-                          children: [
-                            Icon(
-                              _selectedPaymentMethod == 'cash'
-                                  ? Icons.check_circle
-                                  : Icons.radio_button_unchecked,
-                              color: _selectedPaymentMethod == 'cash'
-                                  ? Palette.dayBreakBlue.color7
-                                  : Palette.neutral.color5,
-                              size: 26.sp,
-                            ),
-                            10.horizontalSpace,
-                            CustomText.s14(
-                              localizations.cashOnDelivery,
-                              color: Palette.dayBreakBlue.color7,
-                              bold: true,
-                            ),
-                          ],
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: _selectedPaymentMethod == 'cash'
+                          ? Palette.dayBreakBlue.color7
+                          : Palette.neutral.color4,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(15.h),
+                          child: Row(
+                            children: [
+                              Icon(
+                                _selectedPaymentMethod == 'cash'
+                                    ? Icons.check_circle
+                                    : Icons.radio_button_unchecked,
+                                color: _selectedPaymentMethod == 'cash'
+                                    ? Palette.dayBreakBlue.color7
+                                    : Palette.neutral.color5,
+                                size: 26.sp,
+                              ),
+                              10.horizontalSpace,
+                              CustomText.s14(
+                                localizations.cashOnDelivery,
+                                color: Palette.dayBreakBlue.color7,
+                                bold: true,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               40.verticalSpace,
