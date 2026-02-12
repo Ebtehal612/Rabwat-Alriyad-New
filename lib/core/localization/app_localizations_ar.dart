@@ -542,4 +542,109 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ordernow => 'اطلب الآن';
+
+  @override
+  String get added => 'تمت الإضافة';
+
+  @override
+  String get removed => 'تمت الإزالة';
+
+  @override
+  String get confirmOrder => 'تأكيد الطلب';
+
+  @override
+  String get size => 'الحجم';
+
+  @override
+  String get small => 'صغير';
+
+  @override
+  String get medium => 'متوسط';
+
+  @override
+  String get large => 'كبير';
+
+  @override
+  String get extraLarge => 'كبير جداً';
+
+  @override
+  String get upTo => 'حتى';
+
+  @override
+  String get kg => 'كجم';
+
+  @override
+  String get cuttingMethod => 'طريقة التقطيع';
+
+  @override
+  String get grilled => 'حري';
+
+  @override
+  String get whole => 'وسط (اكيلوا)';
+
+  @override
+  String get withoutFat => 'صغير (اكيلوا)';
+
+  @override
+  String get minced => 'مفروم';
+
+  @override
+  String get fourPieces => 'اربع قطع';
+
+  @override
+  String get preferredCut => 'تفصيل';
+
+  @override
+  String get bigSmall => 'كبير - صغير';
+
+  @override
+  String get thighs => 'افخاذ';
+
+  @override
+  String get threePieces => 'ثلاثة';
+
+  @override
+  String get smallPieces => 'قطع صغيرة';
+
+  @override
+  String get detailedCutting => 'تفصيل حضرمي';
+
+  @override
+  String get smallMedium => 'صغير - متوسط';
+
+  @override
+  String get complete => 'متكامل';
+
+  @override
+  String get packaging => 'التغليف';
+
+  @override
+  String get withoutPackaging => 'بدون تغليف';
+
+  @override
+  String get wrapped => 'مغلف';
+
+  @override
+  String get head => 'الرأس';
+
+  @override
+  String get withoutHead => 'بدون راس';
+
+  @override
+  String get withHead => 'مساوي';
+
+  @override
+  String get mixed => 'مشبوط';
+
+  @override
+  String get orderNotes => 'ملاحظات الطلب';
+
+  @override
+  String get writeNotesHere => 'اكتب ملاحظاتك هنا...';
+
+  @override
+  String get totalPrice => 'السعر الإجمالي';
+
+  @override
+  String get type => 'النوع';
 }

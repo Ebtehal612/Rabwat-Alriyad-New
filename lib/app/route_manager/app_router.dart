@@ -5,10 +5,9 @@ import 'package:rabwat_alriyad_new/presentation/cart/pages/cart_screen.dart';
 import 'package:rabwat_alriyad_new/presentation/contact_us/pages/contact_us_screen.dart';
 import 'package:rabwat_alriyad_new/presentation/home_page/pages/home_page_screen.dart';
 import 'package:rabwat_alriyad_new/presentation/order_completion/pages/order_completion_screen.dart';
-import 'package:rabwat_alriyad_new/presentation/products/pages/additions_screen.dart';
+import 'package:rabwat_alriyad_new/presentation/products/pages/details_screen.dart';
 import 'package:rabwat_alriyad_new/presentation/products/pages/products_screen.dart';
 import 'package:rabwat_alriyad_new/presentation/splash/splash_screen.dart';
-
 
 class AppRouter {
   final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -43,15 +42,27 @@ class AppRouter {
             _buildPageWithTransition(const SplashScreen(), state),
       ),
       GoRoute(
-        name: AdditionsScreen.routeName,
-        path: '${AdditionsScreen.routeName}/:productName',
+        name: DetailsScreen.routeName,
+        path: '${DetailsScreen.routeName}/:productName',
         pageBuilder: (context, state) {
           final productName = state.pathParameters['productName'] ?? '';
+          final extra = state.extra as Map<String, dynamic>?;
           return _buildPageWithTransition(
-            AdditionsScreen(productName: productName),
+            DetailsScreen(
+              productName: productName,
+              productImage: extra?['productImage'] ?? '',
+              productPrice: extra?['productPrice'] ?? '0',
+              actionType: extra?['actionType'] ?? 'addToCart',
+            ),
             state,
           );
         },
+      ),
+      GoRoute(
+        name: CartScreen.routeName,
+        path: CartScreen.routeName,
+        pageBuilder: (context, state) =>
+            _buildPageWithTransition(const CartScreen(), state),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -81,16 +92,6 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                name: CartScreen.routeName,
-                path: CartScreen.routeName,
-                pageBuilder: (context, state) =>
-                    _buildPageWithTransition(const CartScreen(), state),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
                 name: ContactUsScreen.routeName,
                 path: ContactUsScreen.routeName,
                 pageBuilder: (context, state) =>
@@ -104,7 +105,9 @@ class AppRouter {
   );
 
   CustomTransitionPage _buildPageWithTransition(
-      Widget child, GoRouterState state) {
+    Widget child,
+    GoRouterState state,
+  ) {
     return CustomTransitionPage(
       key: state.pageKey,
       child: child,

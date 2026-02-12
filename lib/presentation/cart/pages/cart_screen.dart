@@ -27,7 +27,6 @@ class CartScreen extends StatelessWidget {
             fontSize: 20.sp,
           ),
         ),
-        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -99,11 +98,7 @@ class CartScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final item = cartItems[index];
                     return CartItemWidget(
-                      title: item.productName,
-                      imagePath: item.imagePath,
-                      price: item.unitPrice,
-                      quantity: item.quantity,
-                      subtotal: item.totalPrice,
+                      item: item,
                       onRemove: () {
                         context.read<CartCubit>().removeFromCart(index);
                       },

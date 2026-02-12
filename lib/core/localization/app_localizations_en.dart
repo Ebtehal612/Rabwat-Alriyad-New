@@ -544,4 +544,109 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ordernow => 'Order now';
+
+  @override
+  String get added => 'Added';
+
+  @override
+  String get removed => 'Removed';
+
+  @override
+  String get confirmOrder => 'Confirm Order';
+
+  @override
+  String get size => 'Size';
+
+  @override
+  String get small => 'Small';
+
+  @override
+  String get medium => 'Medium';
+
+  @override
+  String get large => 'Large';
+
+  @override
+  String get extraLarge => 'Extra Large';
+
+  @override
+  String get upTo => 'up to';
+
+  @override
+  String get kg => 'kg';
+
+  @override
+  String get cuttingMethod => 'Cutting Method';
+
+  @override
+  String get grilled => 'Grilled';
+
+  @override
+  String get whole => 'Whole (Akilo)';
+
+  @override
+  String get withoutFat => 'Small (Akilo)';
+
+  @override
+  String get minced => 'Minced';
+
+  @override
+  String get fourPieces => 'Four Pieces';
+
+  @override
+  String get preferredCut => 'Preferred Cut';
+
+  @override
+  String get bigSmall => 'Big - Small';
+
+  @override
+  String get thighs => 'Thighs';
+
+  @override
+  String get threePieces => 'Three';
+
+  @override
+  String get smallPieces => 'Small Pieces';
+
+  @override
+  String get detailedCutting => 'Detailed Cutting';
+
+  @override
+  String get smallMedium => 'Small - Medium';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get packaging => 'Packaging';
+
+  @override
+  String get withoutPackaging => 'Without Packaging';
+
+  @override
+  String get wrapped => 'Wrapped';
+
+  @override
+  String get head => 'Head';
+
+  @override
+  String get withoutHead => 'Without Head';
+
+  @override
+  String get withHead => 'With Head';
+
+  @override
+  String get mixed => 'Mixed';
+
+  @override
+  String get orderNotes => 'Order Notes';
+
+  @override
+  String get writeNotesHere => 'Write your notes here...';
+
+  @override
+  String get totalPrice => 'Total Price';
+
+  @override
+  String get type => 'Type';
 }

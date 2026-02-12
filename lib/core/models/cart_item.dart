@@ -5,6 +5,11 @@ class CartItem {
   final List<String> additions;
   final Map<String, double> additionPrices;
   final int quantity;
+  final String size;
+  final String cuttingMethod;
+  final String packaging;
+  final String head;
+  final String notes;
 
   CartItem({
     required this.productName,
@@ -13,6 +18,11 @@ class CartItem {
     required this.additions,
     required this.additionPrices,
     this.quantity = 1,
+    this.size = '',
+    this.cuttingMethod = '',
+    this.packaging = '',
+    this.head = '',
+    this.notes = '',
   });
 
   double get unitPrice {
@@ -32,6 +42,11 @@ class CartItem {
     List<String>? additions,
     Map<String, double>? additionPrices,
     int? quantity,
+    String? size,
+    String? cuttingMethod,
+    String? packaging,
+    String? head,
+    String? notes,
   }) {
     return CartItem(
       productName: productName ?? this.productName,
@@ -40,6 +55,11 @@ class CartItem {
       additions: additions ?? this.additions,
       additionPrices: additionPrices ?? this.additionPrices,
       quantity: quantity ?? this.quantity,
+      size: size ?? this.size,
+      cuttingMethod: cuttingMethod ?? this.cuttingMethod,
+      packaging: packaging ?? this.packaging,
+      head: head ?? this.head,
+      notes: notes ?? this.notes,
     );
   }
 }

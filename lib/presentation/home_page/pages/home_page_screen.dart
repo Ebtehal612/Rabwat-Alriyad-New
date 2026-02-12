@@ -34,13 +34,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
       child: Consumer<LanguageManager>(
         builder: (context, languageManager, child) {
           return Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(100.h),
-              child: Directionality(
+            appBar: AppBar(
+              toolbarHeight: 70.h,
+              elevation: 0,
+              backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              shadowColor: Colors.black,
+              title: Directionality(
                 textDirection: TextDirection.rtl,
-                child: Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -48,8 +51,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         borderRadius: BorderRadius.circular(12.r),
                         child: Image.asset(
                           'assets/images/sheep.png',
-                          height: 80.h,
-                          width: 80.w,
+                          height: 50.h,
+                          width: 50.w,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -58,13 +61,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CustomText.s20(
+                              CustomText.s16(
                                 AppLocalizations.of(context)!.rabwatalriyad,
                                 color: Palette.dayBreakBlue.color7,
                                 bold: true,
                               ),
                               4.verticalSpace,
-                              CustomText.s12(
+                              CustomText.s11(
                                 AppLocalizations.of(context)!.thebestinKingdom,
                                 color: Palette.neutral.color7,
                               ),
@@ -173,6 +176,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                   ),
                 ),
+                5.verticalSpace,
                 CustomText.s24(
                   AppLocalizations.of(context)!.livestockTitle,
                   color: Colors.white,
@@ -181,7 +185,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 8.verticalSpace,
                 CustomText.s14(
                   AppLocalizations.of(context)!.livestockSubtitle,
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white,
                 ),
                 16.verticalSpace,
                 Center(
@@ -192,7 +196,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(250.w, 50.h),
                       backgroundColor: Palette.dayBreakBlue.color7,
-                      foregroundColor: Colors.white,
+                      shadowColor:Palette.dayBreakBlue.color7,
                       padding: EdgeInsets.symmetric(
                         horizontal: 24.w,
                         vertical: 12.h,

@@ -1045,6 +1045,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Order now'**
   String get ordernow;
+
+  /// No description provided for @added.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get added;
+
+  /// No description provided for @removed.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed'**
+  String get removed;
+
+  /// No description provided for @confirmOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Order'**
+  String get confirmOrder;
+
+  /// No description provided for @size.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get size;
+
+  /// No description provided for @small.
+  ///
+  /// In en, this message translates to:
+  /// **'Small'**
+  String get small;
+
+  /// No description provided for @medium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get medium;
+
+  /// No description provided for @large.
+  ///
+  /// In en, this message translates to:
+  /// **'Large'**
+  String get large;
+
+  /// No description provided for @extraLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra Large'**
+  String get extraLarge;
+
+  /// No description provided for @upTo.
+  ///
+  /// In en, this message translates to:
+  /// **'up to'**
+  String get upTo;
+
+  /// No description provided for @kg.
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get kg;
+
+  /// No description provided for @cuttingMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Cutting Method'**
+  String get cuttingMethod;
+
+  /// No description provided for @grilled.
+  ///
+  /// In en, this message translates to:
+  /// **'Grilled'**
+  String get grilled;
+
+  /// No description provided for @whole.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole (Akilo)'**
+  String get whole;
+
+  /// No description provided for @withoutFat.
+  ///
+  /// In en, this message translates to:
+  /// **'Small (Akilo)'**
+  String get withoutFat;
+
+  /// No description provided for @minced.
+  ///
+  /// In en, this message translates to:
+  /// **'Minced'**
+  String get minced;
+
+  /// No description provided for @fourPieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Four Pieces'**
+  String get fourPieces;
+
+  /// No description provided for @preferredCut.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred Cut'**
+  String get preferredCut;
+
+  /// No description provided for @bigSmall.
+  ///
+  /// In en, this message translates to:
+  /// **'Big - Small'**
+  String get bigSmall;
+
+  /// No description provided for @thighs.
+  ///
+  /// In en, this message translates to:
+  /// **'Thighs'**
+  String get thighs;
+
+  /// No description provided for @threePieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Three'**
+  String get threePieces;
+
+  /// No description provided for @smallPieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Small Pieces'**
+  String get smallPieces;
+
+  /// No description provided for @detailedCutting.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Cutting'**
+  String get detailedCutting;
+
+  /// No description provided for @smallMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Small - Medium'**
+  String get smallMedium;
+
+  /// No description provided for @complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get complete;
+
+  /// No description provided for @packaging.
+  ///
+  /// In en, this message translates to:
+  /// **'Packaging'**
+  String get packaging;
+
+  /// No description provided for @withoutPackaging.
+  ///
+  /// In en, this message translates to:
+  /// **'Without Packaging'**
+  String get withoutPackaging;
+
+  /// No description provided for @wrapped.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrapped'**
+  String get wrapped;
+
+  /// No description provided for @head.
+  ///
+  /// In en, this message translates to:
+  /// **'Head'**
+  String get head;
+
+  /// No description provided for @withoutHead.
+  ///
+  /// In en, this message translates to:
+  /// **'Without Head'**
+  String get withoutHead;
+
+  /// No description provided for @withHead.
+  ///
+  /// In en, this message translates to:
+  /// **'With Head'**
+  String get withHead;
+
+  /// No description provided for @mixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Mixed'**
+  String get mixed;
+
+  /// No description provided for @orderNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Notes'**
+  String get orderNotes;
+
+  /// No description provided for @writeNotesHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your notes here...'**
+  String get writeNotesHere;
+
+  /// No description provided for @totalPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Price'**
+  String get totalPrice;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
 }
 
 class _AppLocalizationsDelegate
