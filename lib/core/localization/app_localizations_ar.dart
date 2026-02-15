@@ -647,4 +647,24 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get type => 'النوع';
+
+  @override
+  String get orderSubmittedSuccessfully => 'تم إرسال الطلب بنجاح';
+
+  @override
+  String get orderSubmittedMessage =>
+      'شكراً لك! تم استلام طلبك وسيتم التواصل معك قريباً';
+
+  @override
+  String get ok => 'موافق';
+
+  @override
+  String get imageNotFound => 'الصورة غير موجودة';
+
+  @override
+  String get messageSubmittedSuccessfully => 'تم إرسال الرسالة بنجاح';
+
+  @override
+  String get messageSubmittedMessage =>
+      'شكراً لك! تم استلام رسالتك وسيتم التواصل معك قريباً';
 }

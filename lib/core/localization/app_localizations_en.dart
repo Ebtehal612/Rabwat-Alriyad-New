@@ -649,4 +649,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get type => 'Type';
+
+  @override
+  String get orderSubmittedSuccessfully => 'Order Submitted Successfully';
+
+  @override
+  String get orderSubmittedMessage =>
+      'Thank you! Your order has been received and we will contact you soon';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get imageNotFound => 'Image not found';
+
+  @override
+  String get messageSubmittedSuccessfully => 'Message Submitted Successfully';
+
+  @override
+  String get messageSubmittedMessage =>
+      'Thank you! Your message has been received and we will contact you soon';
 }

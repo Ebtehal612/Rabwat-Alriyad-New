@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rabwat_alriyad_new/presentation/home_page/pages/home_page_screen.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/localization/app_localizations.dart';
 import '../../../core/theme/palette.dart';
@@ -405,9 +406,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 autoCloseDuration: const Duration(seconds: 2),
                                 title: CustomText.s14(
                                   '${item['name']} ${localizations.removed}',
-                                  color: Palette.dayBreakBlue.color7,
+                                  color:  Colors.red.shade400,
                                   bold: true,
                                 ),
+                                foregroundColor: Colors.red.shade400,
+                                primaryColor: Colors.red,
                                 alignment: Alignment.topCenter,
                                 showProgressBar: false,
                               );
@@ -423,9 +426,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 autoCloseDuration: const Duration(seconds: 2),
                                 title: CustomText.s14(
                                   localizations.itemAdded(item['name']),
-                                  color: Palette.dayBreakBlue.color7,
+                                  color: Colors.white,
                                   bold: true,
                                 ),
+                                backgroundColor: Colors.green.shade500,
+                                primaryColor: Colors.white,
+                                foregroundColor: Colors.white,
                                 alignment: Alignment.topCenter,
                                 showProgressBar: false,
                               );
@@ -520,10 +526,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
             BlocBuilder<AdditionsCubit, Map<String, List<String>>>(
               builder: (context, state) {
                 final totalPrice = _calculateTotalPrice(context);
-                return CustomText.s20(
-                  '${localizations.totalPrice}: ${totalPrice.toStringAsFixed(0)} ${localizations.sar}',
-                  color: Palette.dayBreakBlue.color7,
-                  bold: true,
+                return Center(
+                  child: CustomText.s20(
+                    '${localizations.totalPrice}: ${totalPrice.toStringAsFixed(0)} ${localizations.sar}',
+                    color: Palette.dayBreakBlue.color7,
+                    bold: true,
+                  ),
                 );
               },
             ),
@@ -601,15 +609,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     autoCloseDuration: const Duration(seconds: 3),
                     title: CustomText.s14(
                       localizations.orderAddedToCart,
-                      color: Palette.dayBreakBlue.color7,
+                      color: Colors.white,
                       bold: true,
                     ),
+                    backgroundColor: Colors.green.shade500,
+                    primaryColor: Colors.white,
+                    foregroundColor: Colors.white,
                     alignment: Alignment.topCenter,
                     showProgressBar: false,
                   );
 
-                  // Go back to products page
-                  Navigator.pop(context);
+                  // Go back to homepage
+                  context.go(HomePageScreen.routeName);
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(

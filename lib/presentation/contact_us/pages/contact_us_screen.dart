@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rabwat_alriyad_new/core/widgets/text/custom_text.dart';
+import 'package:rabwat_alriyad_new/presentation/home_page/pages/home_page_screen.dart';
 import '../../../app/di/injection_container.dart';
 import '../../../core/localization/localization_manager.dart';
 import '../../../core/utils/validators.dart';
@@ -502,13 +505,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   onPressed: _isButtonEnabled
                       ? () {
                           if (_formKey.currentState!.validate()) {
-                            // Handle message submission
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(lz.sendMessageButton),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
+                            _showSuccessDialog(context);
                           }
                         }
                       : null,
@@ -528,6 +525,95 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  void _showSuccessDialog(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          child: Container(
+            height: 400.h,
+            padding: EdgeInsets.all(32.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Success Icon
+                  Container(
+                    width: 80.w,
+                    height: 80.h,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.check, color: Colors.white, size: 50.sp),
+                  ),
+
+                  24.verticalSpace,
+
+                  // Success Title
+                  CustomText.s20(
+                    localizations.messageSubmittedSuccessfully,
+                    color: Palette.dayBreakBlue.color7,
+                    bold: true,
+                  ),
+
+                  16.verticalSpace,
+
+                  // Success Message
+                  CustomText.s14(
+                    localizations.messageSubmittedMessage,
+                    color: Palette.neutral.color7,
+                  ),
+
+                  32.verticalSpace,
+
+                  // OK Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close dialog
+                        context.go(
+                          HomePageScreen.routeName,
+                        ); // Navigate to homepage
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Palette.dayBreakBlue.color7,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: CustomText.s16(
+                        localizations.ok,
+                        color: Colors.white,
+                        bold: true,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

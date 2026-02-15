@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rabwat_alriyad_new/core/cubits/cart_cubit.dart';
 import 'package:rabwat_alriyad_new/core/models/cart_item.dart';
+import 'package:rabwat_alriyad_new/presentation/products/pages/details_screen.dart';
 import 'package:toastification/toastification.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/localization/app_localizations.dart';
@@ -196,7 +197,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(250.w, 50.h),
                       backgroundColor: Palette.dayBreakBlue.color7,
-                      shadowColor:Palette.dayBreakBlue.color7,
+                      shadowColor: Palette.dayBreakBlue.color7,
                       padding: EdgeInsets.symmetric(
                         horizontal: 24.w,
                         vertical: 12.h,
@@ -414,94 +415,106 @@ class _HomePageScreenState extends State<HomePageScreen> {
     String imagePath,
     String price,
   ) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 120.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
-              color: Palette.dayBreakBlue.color7.withOpacity(0.1),
+    return GestureDetector(
+      onTap: () {
+        context.push(
+          '${DetailsScreen.routeName}/$name',
+          extra: {
+            'productImage': imagePath,
+            'productPrice': price,
+            'actionType': 'addToCart',
+          },
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
-              child: Image.asset(
-                imagePath,
-                height: 120.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    height: 120.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Palette.dayBreakBlue.color7.withOpacity(0.1),
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(12.r),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 120.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
+                color: Palette.dayBreakBlue.color7.withOpacity(0.1),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
+                child: Image.asset(
+                  imagePath,
+                  height: 120.h,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 120.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Palette.dayBreakBlue.color7.withOpacity(0.1),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.r),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.image_not_supported,
-                          size: 40.sp,
-                          color: Palette.dayBreakBlue.color7.withOpacity(0.5),
-                        ),
-                        8.verticalSpace,
-                        CustomText.s12(
-                          'Image not found',
-                          color: Palette.dayBreakBlue.color7.withOpacity(0.5),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.image_not_supported,
+                            size: 40.sp,
+                            color: Palette.dayBreakBlue.color7.withOpacity(0.5),
+                          ),
+                          8.verticalSpace,
+                          CustomText.s12(
+                            'imageNotFound',
+                            color: Palette.dayBreakBlue.color7.withOpacity(0.5),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(12.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomText.s14(
-                  name,
-                  color: Palette.dayBreakBlue.color7,
-                  bold: true,
-                ),
-                8.verticalSpace,
-                Row(
-                  children: [
-                    Icon(
-                      Icons.arrow_back_ios,
-                      size: 12.sp,
-                      color: Palette.dayBreakBlue.color7,
-                    ),
-                    4.horizontalSpace,
-                    CustomText.s12(
-                      '$price ${AppLocalizations.of(context)!.sar}',
-                      color: Palette.dayBreakBlue.color7,
-                      bold: true,
-                    ),
-                  ],
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.all(12.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText.s14(
+                    name,
+                    color: Palette.dayBreakBlue.color7,
+                    bold: true,
+                  ),
+                  8.verticalSpace,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.arrow_back_ios,
+                        size: 12.sp,
+                        color: Palette.dayBreakBlue.color7,
+                      ),
+                      4.horizontalSpace,
+                      CustomText.s12(
+                        '$price ${AppLocalizations.of(context)!.sar}',
+                        color: Palette.dayBreakBlue.color7,
+                        bold: true,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -529,227 +542,237 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           ),
           16.verticalSpace,
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 15,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Container(
-                  height: 200.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(16.r),
-                    ),
-                    color: Palette.dayBreakBlue.color7.withOpacity(0.1),
+          GestureDetector(
+            onTap: () {
+              context.push(
+                '${DetailsScreen.routeName}/${AppLocalizations.of(context)!.localcow}',
+                extra: {
+                  'productImage': 'assets/images/cow.png',
+                  'productPrice': '1250',
+                  'actionType': 'addToCart',
+                },
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
                   ),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(16.r),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16.r),
+                      ),
+                      color: Palette.dayBreakBlue.color7.withOpacity(0.1),
+                    ),
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(16.r),
+                          ),
+                          child: Image.asset(
+                            'assets/images/cow.png',
+                            height: 200.h,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 200.h,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Palette.dayBreakBlue.color7
+                                      .withOpacity(0.1),
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(16.r),
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.image_not_supported,
+                                      size: 60.sp,
+                                      color: Palette.dayBreakBlue.color7
+                                          .withOpacity(0.5),
+                                    ),
+                                    8.verticalSpace,
+                                    CustomText.s14(
+                                      'imageNotFound',
+                                      color: Palette.dayBreakBlue.color7
+                                          .withOpacity(0.5),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        child: Image.asset(
-                          'assets/images/cow.png',
-                          height: 200.h,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              height: 200.h,
-                              width: double.infinity,
+                        Positioned(
+                          top: 12.h,
+                          right: 12.w,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.w,
+                              vertical: 4.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            child: CustomText.s10(
+                              AppLocalizations.of(context)!.availableNow,
+                              color: Colors.white,
+                              bold: true,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8.w),
                               decoration: BoxDecoration(
                                 color: Palette.dayBreakBlue.color7.withOpacity(
                                   0.1,
                                 ),
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(16.r),
-                                ),
+                                borderRadius: BorderRadius.circular(8.r),
                               ),
+                              child: Icon(
+                                Icons.location_on,
+                                color: Palette.dayBreakBlue.color7,
+                                size: 16.sp,
+                              ),
+                            ),
+                            12.horizontalSpace,
+                            Expanded(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Icon(
-                                    Icons.image_not_supported,
-                                    size: 60.sp,
-                                    color: Palette.dayBreakBlue.color7
-                                        .withOpacity(0.5),
+                                  CustomText.s16(
+                                    AppLocalizations.of(context)!.localcow,
+                                    color: Palette.dayBreakBlue.color7,
+                                    bold: true,
                                   ),
-                                  8.verticalSpace,
-                                  CustomText.s14(
-                                    'Image not found',
+                                  4.verticalSpace,
+                                  CustomText.s12(
+                                    '${AppLocalizations.of(context)!.years} 4 • ${AppLocalizations.of(context)!.months} 6',
                                     color: Palette.dayBreakBlue.color7
-                                        .withOpacity(0.5),
+                                        .withOpacity(0.7),
                                   ),
                                 ],
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        top: 12.h,
-                        right: 12.w,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                          child: CustomText.s10(
-                            AppLocalizations.of(context)!.availableNow,
-                            color: Colors.white,
-                            bold: true,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(16.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(8.w),
-                            decoration: BoxDecoration(
-                              color: Palette.dayBreakBlue.color7.withOpacity(
-                                0.1,
-                              ),
-                              borderRadius: BorderRadius.circular(8.r),
                             ),
-                            child: Icon(
-                              Icons.location_on,
-                              color: Palette.dayBreakBlue.color7,
-                              size: 16.sp,
-                            ),
-                          ),
-                          12.horizontalSpace,
-                          Expanded(
-                            child: Column(
+                          ],
+                        ),
+                        16.verticalSpace,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CustomText.s16(
-                                  AppLocalizations.of(context)!.localcow,
+                                CustomText.s20(
+                                  '1250 ${AppLocalizations.of(context)!.sar}',
                                   color: Palette.dayBreakBlue.color7,
                                   bold: true,
                                 ),
                                 4.verticalSpace,
                                 CustomText.s12(
-                                  '${AppLocalizations.of(context)!.years} 4 • ${AppLocalizations.of(context)!.months} 6',
+                                  AppLocalizations.of(context)!.saudiRiyal,
                                   color: Palette.dayBreakBlue.color7
                                       .withOpacity(0.7),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                      16.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText.s20(
-                                '1250 ${AppLocalizations.of(context)!.sar}',
-                                color: Palette.dayBreakBlue.color7,
-                                bold: true,
-                              ),
-                              4.verticalSpace,
-                              CustomText.s12(
-                                AppLocalizations.of(context)!.saudiRiyal,
-                                color: Palette.dayBreakBlue.color7.withOpacity(
-                                  0.7,
-                                ),
-                              ),
-                            ],
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              final cartCubit = context.read<CartCubit>();
+                            ElevatedButton(
+                              onPressed: () {
+                                final cartCubit = context.read<CartCubit>();
 
-                              final cartItem = CartItem(
-                                productName: AppLocalizations.of(
-                                  context,
-                                )!.localcow,
-                                imagePath: 'assets/images/cow.png',
-                                basePrice: 1250,
-                                additions: [],
-                                additionPrices: {},
-                                quantity: 1,
-                              );
-
-                              cartCubit.addToCart(cartItem);
-
-                              toastification.show(
-                                context: context,
-                                type: ToastificationType.success,
-                                style: ToastificationStyle.flat,
-                                autoCloseDuration: const Duration(seconds: 3),
-                                backgroundColor: Colors.green.shade500,
-                                title: CustomText.s14(
-                                  AppLocalizations.of(
+                                final cartItem = CartItem(
+                                  productName: AppLocalizations.of(
                                     context,
-                                  )!.orderAddedToCart,
-                                  color: Colors.white,
-                                  bold: true,
-                                ),
-                                primaryColor: Colors.white,
+                                  )!.localcow,
+                                  imagePath: 'assets/images/cow.png',
+                                  basePrice: 1250,
+                                  additions: [],
+                                  additionPrices: {},
+                                  quantity: 1,
+                                );
+
+                                cartCubit.addToCart(cartItem);
+
+                                toastification.show(
+                                  context: context,
+                                  type: ToastificationType.success,
+                                  style: ToastificationStyle.flat,
+                                  autoCloseDuration: const Duration(seconds: 3),
+                                  title: CustomText.s14(
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.orderAddedToCart,
+                                    color: Colors.white,
+                                    bold: true,
+                                  ),
+                                  backgroundColor: Colors.green.shade500,
+                                  primaryColor: Colors.white,
+                                  foregroundColor: Colors.white,
+                                  alignment: Alignment.topCenter,
+                                  showProgressBar: false,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Palette.dayBreakBlue.color7,
                                 foregroundColor: Colors.white,
-                                alignment: Alignment.topCenter,
-                                showProgressBar: false,
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Palette.dayBreakBlue.color7,
-                              foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 20.w,
-                                vertical: 12.h,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w,
+                                  vertical: 12.h,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
                               ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.r),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CustomText.s12(
+                                    AppLocalizations.of(context)!.addtocart,
+                                    color: Colors.white,
+                                  ),
+                                  8.horizontalSpace,
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 16.sp,
+                                    color: Colors.white,
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                CustomText.s12(
-                                  AppLocalizations.of(context)!.addtocart,
-                                  color: Colors.white,
-                                ),
-                                8.horizontalSpace,
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 16.sp,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

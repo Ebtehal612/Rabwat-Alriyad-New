@@ -75,7 +75,7 @@ class ProductCard extends StatelessWidget {
                           ),
                           8.verticalSpace,
                           CustomText.s12(
-                            'Image not found',
+                            AppLocalizations.of(context)!.imageNotFound,
                             color: Palette.dayBreakBlue.color7.withOpacity(0.5),
                           ),
                         ],

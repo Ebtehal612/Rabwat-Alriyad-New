@@ -201,5 +201,12 @@
  "orderNotes":"ملاحظات الطلب",
   "writeNotesHere":"اكتب ملاحظاتك هنا...",
   "totalPrice":"السعر الإجمالي",
-  "type":"النوع"
+  "type":"النوع",
+  "orderSubmittedSuccessfully":"تم إرسال الطلب بنجاح",
+  "orderSubmittedMessage":"شكراً لك! تم استلام طلبك وسيتم التواصل معك قريباً",
+  "ok":"موافق",
+  "imageNotFound":"الصورة غير موجودة",
+    "type":"النوع",
+  "messageSubmittedSuccessfully":"تم إرسال الرسالة بنجاح",
+  "messageSubmittedMessage":"شكراً لك! تم استلام رسالتك وسيتم التواصل معك قريباً"
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rabwat_alriyad_new/presentation/home_page/pages/home_page_screen.dart';
 import '../../../core/localization/app_localizations.dart';
 import '../../../core/localization/localization_manager.dart';
 import '../../../core/theme/palette.dart';
@@ -13,7 +15,7 @@ import '../../../core/utils/validators.dart';
 class OrderCompletionScreen extends StatefulWidget {
   static const routeName = '/order-completion';
   final double? totalPrice;
-  
+
   const OrderCompletionScreen({super.key, this.totalPrice});
 
   @override
@@ -53,22 +55,23 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
     final validators = sl<Validators>();
     setState(() {
       final isNameValid = _nameController.text.trim().isNotEmpty;
-      final isPhoneValid = validators.saudiMobile(_phoneController.text) == null;
+      final isPhoneValid =
+          validators.saudiMobile(_phoneController.text) == null;
       final isAddressValid = _addressController.text.trim().isNotEmpty;
-      
+
       // Discount code is optional, so we don't check it
-      
-      final isPaymentValid = _selectedPaymentMethod == 'cash' ||
+
+      final isPaymentValid =
+          _selectedPaymentMethod == 'cash' ||
           (_selectedPaymentMethod == 'bank' && _receiptFile != null);
 
-      _isButtonEnabled = isNameValid && isPhoneValid && isAddressValid && isPaymentValid;
+      _isButtonEnabled =
+          isNameValid && isPhoneValid && isAddressValid && isPaymentValid;
     });
   }
 
   Future<void> _pickImage() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
+    final result = await FilePicker.platform.pickFiles(type: FileType.image);
 
     if (result != null) {
       setState(() {
@@ -76,6 +79,95 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
       });
       _validateForm();
     }
+  }
+
+  void _showSuccessDialog(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          child: Container(
+            height: 400.h,
+            padding: EdgeInsets.all(32.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Success Icon
+                  Container(
+                    width: 80.w,
+                    height: 80.h,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.check, color: Colors.white, size: 50.sp),
+                  ),
+
+                  24.verticalSpace,
+
+                  // Success Title
+                  CustomText.s20(
+                    localizations.orderSubmittedSuccessfully,
+                    color: Palette.dayBreakBlue.color7,
+                    bold: true,
+                  ),
+
+                  16.verticalSpace,
+
+                  // Success Message
+                  CustomText.s14(
+                    localizations.orderSubmittedMessage,
+                    color: Palette.neutral.color7,
+                  ),
+
+                  32.verticalSpace,
+
+                  // OK Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close dialog
+                        context.go(
+                          HomePageScreen.routeName,
+                        ); // Navigate to homepage
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Palette.dayBreakBlue.color7,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: CustomText.s16(
+                        localizations.ok,
+                        color: Colors.white,
+                        bold: true,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -129,20 +221,21 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
               ),
               15.verticalSpace,
               Center(
-                  child: Column(
-                children: [
-                  CustomText.s22(
-                    '${(widget.totalPrice ?? 7150).toStringAsFixed(0)} ${lz.sar}',
-                    bold: true,
-                    color: Palette.dayBreakBlue.color7,
-                  ),
-                  10.verticalSpace,
-                  CustomText.s13(
-                    lz.totalamountrequired,
-                    color: Palette.neutral.color6,
-                  )
-                ],
-              )),
+                child: Column(
+                  children: [
+                    CustomText.s22(
+                      '${(widget.totalPrice ?? 7150).toStringAsFixed(0)} ${lz.sar}',
+                      bold: true,
+                      color: Palette.dayBreakBlue.color7,
+                    ),
+                    10.verticalSpace,
+                    CustomText.s13(
+                      lz.totalamountrequired,
+                      color: Palette.neutral.color6,
+                    ),
+                  ],
+                ),
+              ),
               15.verticalSpace,
               // Full Name Field
               CustomInput(
@@ -150,8 +243,10 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                 title: localizations.fullName,
                 hint: localizations.enterFullName,
                 hintColor: Palette.neutral.color7,
-                prefix:
-                    Icon(Icons.person_outline, color: Palette.neutral.color7),
+                prefix: Icon(
+                  Icons.person_outline,
+                  color: Palette.neutral.color7,
+                ),
                 backgroundColor: Palette.neutral.color2,
                 showAsterisk: false,
                 validator: (val) =>
@@ -165,8 +260,10 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                 title: localizations.mobileNumber,
                 hint: '05xxxxxxxx',
                 hintColor: Palette.neutral.color7,
-                prefix: Icon(Icons.phone_android_outlined,
-                    color: Palette.neutral.color7),
+                prefix: Icon(
+                  Icons.phone_android_outlined,
+                  color: Palette.neutral.color7,
+                ),
                 backgroundColor: Palette.neutral.color2,
                 keyboardType: TextInputType.phone,
                 showAsterisk: false,
@@ -180,12 +277,16 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                 title: localizations.detailedAddress,
                 hint: localizations.enterDetailedAddress,
                 hintColor: Palette.neutral.color7,
-                prefix: Icon(Icons.location_on_outlined,
-                    color: Palette.neutral.color7),
+                prefix: Icon(
+                  Icons.location_on_outlined,
+                  color: Palette.neutral.color7,
+                ),
                 backgroundColor: Palette.neutral.color2,
                 showAsterisk: false,
-                validator: (val) => validators.required(val,
-                    title: localizations.detailedAddress),
+                validator: (val) => validators.required(
+                  val,
+                  title: localizations.detailedAddress,
+                ),
               ),
               20.verticalSpace,
 
@@ -195,8 +296,10 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                 title: localizations.discountCode,
                 hint: localizations.enterDiscountCode,
                 hintColor: Palette.neutral.color7,
-                prefix:
-                    Icon(Icons.qr_code_outlined, color: Palette.neutral.color7),
+                prefix: Icon(
+                  Icons.qr_code_outlined,
+                  color: Palette.neutral.color7,
+                ),
                 backgroundColor: Palette.neutral.color2,
                 showAsterisk: false,
                 required: false,
@@ -233,67 +336,69 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                         child: Container(
                           padding: EdgeInsets.all(15.w),
                           child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    _selectedPaymentMethod == 'bank'
+                                        ? Icons.check_circle
+                                        : Icons.radio_button_unchecked,
+                                    color: _selectedPaymentMethod == 'bank'
+                                        ? Palette.dayBreakBlue.color7
+                                        : Palette.neutral.color5,
+                                    size: 26.sp,
+                                  ),
+                                  10.horizontalSpace,
+                                  CustomText.s14(
+                                    localizations.bankTransfer,
+                                    color: Palette.dayBreakBlue.color7,
+                                    bold: true,
+                                  ),
+                                ],
+                              ),
+                              10.verticalSpace,
+                              InkWell(
+                                onTap: _pickImage,
+                                child: Row(
                                   children: [
+                                    26.horizontalSpace,
                                     Icon(
-                                      _selectedPaymentMethod == 'bank'
+                                      _receiptFile != null
                                           ? Icons.check_circle
-                                          : Icons.radio_button_unchecked,
-                                      color: _selectedPaymentMethod == 'bank'
-                                          ? Palette.dayBreakBlue.color7
-                                          : Palette.neutral.color5,
-                                      size: 26.sp,
+                                          : Icons.add_circle_outline,
+                                      size: 20.sp,
+                                      color: _receiptFile != null
+                                          ? Colors.green
+                                          : Palette.neutral.color7,
                                     ),
-                                    10.horizontalSpace,
-                                    CustomText.s14(
-                                      localizations.bankTransfer,
-                                      color: Palette.dayBreakBlue.color7,
-                                      bold: true,
+                                    4.horizontalSpace,
+                                    Expanded(
+                                      child: CustomText.s12(
+                                        _receiptFile?.name ??
+                                            localizations.attachReceipt,
+                                        color: _receiptFile != null
+                                            ? Palette.dayBreakBlue.color7
+                                            : Palette.neutral.color7,
+                                        overflow: true,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                10.verticalSpace,
-                                InkWell(
-                                  onTap: _pickImage,
-                                  child: Row(
-                                    children: [
-                                      26.horizontalSpace,
-                                      Icon(
-                                        _receiptFile != null
-                                            ? Icons.check_circle
-                                            : Icons.add_circle_outline,
-                                        size: 20.sp,
-                                        color: _receiptFile != null
-                                            ? Colors.green
-                                            : Palette.neutral.color7,
-                                      ),
-                                      4.horizontalSpace,
-                                      Expanded(
-                                        child: CustomText.s12(
-                                          _receiptFile?.name ??
-                                              localizations.attachReceipt,
-                                          color: _receiptFile != null
-                                              ? Palette.dayBreakBlue.color7
-                                              : Palette.neutral.color7,
-                                          overflow: true,
-                                        ),
-                                      ),
-                                    ],
+                              ),
+                              if (_selectedPaymentMethod == 'bank' &&
+                                  _receiptFile == null) ...[
+                                5.verticalSpace,
+                                Padding(
+                                  padding: EdgeInsets.only(left: 26.w),
+                                  child: CustomText.s10(
+                                    '* ${localizations.attachReceipt}',
+                                    color: Colors.red,
                                   ),
                                 ),
-                                if (_selectedPaymentMethod == 'bank' && _receiptFile == null) ...[
-                                  5.verticalSpace,
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 26.w),
-                                    child: CustomText.s10(
-                                      '* ${localizations.attachReceipt}',
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ],
-                              ]),
+                              ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -357,7 +462,7 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
                   onPressed: _isButtonEnabled
                       ? () {
                           if (_formKey.currentState!.validate()) {
-                            // Handle order submission
+                            _showSuccessDialog(context);
                           }
                         }
                       : null,

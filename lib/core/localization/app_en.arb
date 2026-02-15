@@ -255,5 +255,11 @@
   "orderNotes":"Order Notes",
   "writeNotesHere":"Write your notes here...",
   "totalPrice":"Total Price",
-  "type":"Type"
+  "type":"Type",
+  "orderSubmittedSuccessfully":"Order Submitted Successfully",
+  "orderSubmittedMessage":"Thank you! Your order has been received and we will contact you soon",
+  "ok":"OK",
+  "imageNotFound":"Image not found",
+  "messageSubmittedSuccessfully":"Message Submitted Successfully",
+  "messageSubmittedMessage":"Thank you! Your message has been received and we will contact you soon"
 }

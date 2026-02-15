@@ -1255,6 +1255,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Type'**
   String get type;
+
+  /// No description provided for @orderSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Submitted Successfully'**
+  String get orderSubmittedSuccessfully;
+
+  /// No description provided for @orderSubmittedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you! Your order has been received and we will contact you soon'**
+  String get orderSubmittedMessage;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @imageNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Image not found'**
+  String get imageNotFound;
+
+  /// No description provided for @messageSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Message Submitted Successfully'**
+  String get messageSubmittedSuccessfully;
+
+  /// No description provided for @messageSubmittedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you! Your message has been received and we will contact you soon'**
+  String get messageSubmittedMessage;
 }
 
 class _AppLocalizationsDelegate
