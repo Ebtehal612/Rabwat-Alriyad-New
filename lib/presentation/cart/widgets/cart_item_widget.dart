@@ -135,8 +135,8 @@ class CartItemWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   columnWidths: const {
-                    0: FlexColumnWidth(2),
-                    1: FlexColumnWidth(1),
+                    0: FlexColumnWidth(1),
+                    1: FlexColumnWidth(2),
                   },
                   children: [
                     _buildTableRow(
@@ -224,27 +224,22 @@ class CartItemWidget extends StatelessWidget {
     return TableRow(
       children: [
         Padding(
-          padding: EdgeInsets.all(12.w),
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            value,
-            textAlign: TextAlign.right,
+            label,
             style: TextStyle(
               fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
               color: Palette.dayBreakBlue.color7,
             ),
           ),
         ),
-        Container(
-          padding: EdgeInsets.all(12.w),
-          decoration: BoxDecoration(
-            color: Palette.neutral.color2,
-          ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            label,
-            textAlign: TextAlign.right,
+            value,
             style: TextStyle(
               fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
               color: Palette.dayBreakBlue.color7,
             ),
           ),

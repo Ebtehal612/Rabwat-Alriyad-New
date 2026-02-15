@@ -93,7 +93,7 @@ class _OrderCompletionScreenState extends State<OrderCompletionScreen> {
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Container(
-            height: 400.h,
+            height: 410.h,
             padding: EdgeInsets.all(32.w),
             decoration: BoxDecoration(
               color: Colors.white,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rabwat_alriyad_new/presentation/home_page/pages/home_page_screen.dart';
+import 'package:rabwat_alriyad_new/presentation/products/pages/products_screen.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/localization/app_localizations.dart';
 import '../../../core/theme/palette.dart';
@@ -619,8 +619,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     showProgressBar: false,
                   );
 
-                  // Go back to homepage
-                  context.go(HomePageScreen.routeName);
+                  // Go back to ProductsScreen
+                  context.go(ProductsScreen.routeName);
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
